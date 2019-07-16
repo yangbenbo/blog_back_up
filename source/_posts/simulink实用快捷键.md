@@ -1,8 +1,14 @@
 ---
 title: simulink 实用快捷键
 date: 2019-07-13 21:20:09
-tags: 软件学习
+categories:
+- software
+tags:
+- simulink
+
 ---
+打开模型浏览器： ctrl + shift + L
+
 
 视图放大：r
 
