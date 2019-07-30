@@ -2,7 +2,7 @@
 title: ubuntu系统配置
 date: 2019-07-14 20:17:42
 categories:
-- ubuntu16配置
+- Linux
 tags:
 - software
 - ubuntu
