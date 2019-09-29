@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>yangbenbo&#39;s blog</title>
+  
+  <subtitle>人生在勤，不索何获</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yangbenbo.github.io/"/>
+  <updated>2019-09-29T14:10:33.865Z</updated>
+  <id>http://yangbenbo.github.io/</id>
+  
+  <author>
+    <name>杨本泊</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ubuntu小技巧</title>
+    <link href="http://yangbenbo.github.io/2019/09/29/ubuntu%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    <id>http://yangbenbo.github.io/2019/09/29/ubuntu小技巧/</id>
+    <published>2019-09-29T13:11:37.000Z</published>
+    <updated>2019-09-29T14:10:33.865Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h1><pre><code>gedit test.txt &amp;   #  &amp;告诉终端后台运行,gedit test.txt  ctrl+Z  #移到后台bg    #返回gedit</code></pre><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><pre><code>ps ax | grep samplekill &lt;id&gt;     #终止进程top   #show process and memory usageshift+P   #sort by cpushift+M  #sort by memory</code></pre><h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><pre><code>nmap -sn 10.1.1.1-255  # 扫描局域网ip</code></pre><h1 id="软件安装路径"><a href="#软件安装路径" class="headerlink" title="软件安装路径"></a>软件安装路径</h1><pre><code>whereis gcc   #查看gcc安装路径which   gcc  #查看gcc运行路径</code></pre><p>rpm</p><pre><code>rpm -ql gcc        #查看gcc相关文件的安装路径rpm -qa | grep gcc #查看有没有安装gccrpm -qa            #查看全部使用rpm安装的软件</code></pre><p>deb</p><pre><code>dpkg -L gcc         #查看gcc相关文件的安装路径dpkg -l | grep gcc  #查看有没有安装gccdpkg -l             #查看全部安装包</code></pre><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><pre><code>uname    #查看当前系统信息 包括内核ctrl + L #在资源管理器中显示绝对路径su       #切换用户  sudo su</code></pre><ul><li><p>ubuntu 4个工作区 和win10的多桌面一样 ctrl+alt+方向箭头 切换 setting-&gt;appearance-&gt;behavior-&gt;enable workspaces</p></li><li><p>deb文件包含二进制文件、库文件、配置文件、帮助文档<br>ubuntu软件包：二进制包 (Binary Packages)   源码包(Source Packages)<br>Redhat Linux  -&gt; RPM包    ubunut -&gt; Deb包</p></li></ul><h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ol><li><a href="https://blog.csdn.net/liufuchun111/article/details/80402109" target="_blank" rel="noopener">linux下查看软件安装路径</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;后台运行&quot;&gt;&lt;a href=&quot;#后台运行&quot; class=&quot;headerlink&quot; title=&quot;后台运行&quot;&gt;&lt;/a&gt;后台运行&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;gedit test.txt &amp;amp;   #  &amp;amp;告诉终端后台运行,
+gedit test.tx
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yangbenbo.github.io/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>shell和下载工具</title>
+    <link href="http://yangbenbo.github.io/2019/09/29/shell%E5%92%8C%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7/"/>
+    <id>http://yangbenbo.github.io/2019/09/29/shell和下载工具/</id>
+    <published>2019-09-29T04:27:00.000Z</published>
+    <updated>2019-09-29T13:16:22.201Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SHELL常用符号"><a href="#SHELL常用符号" class="headerlink" title="SHELL常用符号"></a>SHELL常用符号</h1><pre><code>echo $SHELL      env |grep SHELLsh  #可进入shell    </code></pre><ol><li><ul><li>通用符号，可以表示任意一个字符（包括空字符）或多个字符组成的字符串  ls -l /bin/e*</li></ul></li><li>? 类似×，但是只能表示单个字符</li><li>[] 制定被显示内容的范围 ls [a-c] 显示a 、b 、c文件夹</li><li>！排除符号 用来指定被屏蔽的部分，需要与[]一起使用  ls [!a-c]  不显示a、b、c文件夹</li><li>; 分隔符号，多个命令分隔  ls;ls -l</li><li><code>命令替代符，成对出现，包含的内容在shell中表示一条命令，并且会被执行，这不是单引号 echo</code>ls -l`  将命令的结果显示出来 </li><li><h1 id="注释符号"><a href="#注释符号" class="headerlink" title="注释符号"></a>注释符号</h1><h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1></li><li><p>别名</p><pre><code> alias hs=&#39;hexo clean &amp;&amp; hexo g &amp;&amp; hexo s&#39;  # 注意等号前后无空格  别名相当与快捷键</code></pre></li><li><p>重定向 &gt; 输入（覆盖）  &gt;&gt; 输入追加  &lt; 输出</p><pre><code> ls -l &gt; test.txt  # 把ls 的结果写入test.txt中</code></pre></li></ol><ol><li><p>管道  “|”</p><pre><code> ls -l |grep test</code></pre></li></ol><h1 id="下载工具"><a href="#下载工具" class="headerlink" title="下载工具"></a>下载工具</h1><ul><li>apt</li><li>wget</li><li><p>Transmission   #种子下载</p><pre><code>  wget  -r -np -nd http://10.143.2.9/packages/      递归下载 不遍历父目录  不在本地重新创建目录  wget  -r -np -nd --accept=cpp http://10.143.2.9/packages/      递归下载 不遍历父目录  不在本地重新创建目录 扩展名为cpp的文件  wget -i filename.txt      URL地址放在filename.txt文件，自动下载所有文件  wget -c  ...  断点续传</code></pre></li></ul><h1 id="注释符号-1"><a href="#注释符号-1" class="headerlink" title="注释符号"></a>注释符号</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;SHELL常用符号&quot;&gt;&lt;a href=&quot;#SHELL常用符号&quot; class=&quot;headerlink&quot; title=&quot;SHELL常用符号&quot;&gt;&lt;/a&gt;SHELL常用符号&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;echo $SHELL      
+env |grep SHELL
+
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yangbenbo.github.io/categories/Linux/"/>
+    
+    
+      <category term="shell" scheme="http://yangbenbo.github.io/tags/shell/"/>
+    
+      <category term="下载工具" scheme="http://yangbenbo.github.io/tags/%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ssh远程登录</title>
+    <link href="http://yangbenbo.github.io/2019/09/29/ssh%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/"/>
+    <id>http://yangbenbo.github.io/2019/09/29/ssh远程登录/</id>
+    <published>2019-09-29T04:13:36.000Z</published>
+    <updated>2019-09-29T04:24:22.336Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ssh简介"><a href="#ssh简介" class="headerlink" title="ssh简介"></a>ssh简介</h1><p><strong>S</strong>ecure <strong>Sh</strong>ell(SSH) 可以把所有传输的数据进行加密，也能够防止DNS欺骗和IP欺骗。还有一个额外的好处就是传输的数据是经过压缩的，所以可以加快传输的速度。目前已经成为Linux系统的标准配置。</p><p>SSH之所以能够保证安全，原因在于它采用了非对称加密技术(<strong>RSA</strong>)加密了所有传输的数据。</p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code>sudo apt-get install openssh-client #本地主机运行此条，实际上通常是默认安装client端程序的sudo apt-get install openssh-server #服务器运行此条命令安装dpkg -l | grep ssh    #查看是否安装对应包</code></pre><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><pre><code>sudo /etc/init.d/ssh start    #打开服务器服务  关闭 stopps -e | grep ssh    #可以查看服务是否启动</code></pre><h1 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h1><pre><code>ssh 服务器用户名@服务器ip地址  #客户端登录  特别注意用户名要正确ssh-keygen -t rsa      #生成公钥私钥ssh-copy-id server@10.1.1.20 #把公钥上传服务器 免密登录</code></pre><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>ssh无秘钥登录报错sign_and_send_pubkey: signing failed: agent refused operation。<br>表示ssh-agent 已经在运行了，但是找不到附加的任何keys，就是说你生成的key，没有附加到ssh-agent上，需要附加一下，执行    </p><pre><code>ssh-add   #可能需要先执行eval &quot;$(ssh-agent -s)&quot;</code></pre><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/li528405176/article/details/82810342" target="_blank" rel="noopener">SSH简介及两种远程登录的方法</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;ssh简介&quot;&gt;&lt;a href=&quot;#ssh简介&quot; class=&quot;headerlink&quot; title=&quot;ssh简介&quot;&gt;&lt;/a&gt;ssh简介&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;S&lt;/strong&gt;ecure &lt;strong&gt;Sh&lt;/strong&gt;ell(SSH) 可以把所有传
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yangbenbo.github.io/categories/Linux/"/>
+    
+    
+      <category term="ssh" scheme="http://yangbenbo.github.io/tags/ssh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>矩生成函数</title>
+    <link href="http://yangbenbo.github.io/2019/09/01/%E7%9F%A9%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/"/>
+    <id>http://yangbenbo.github.io/2019/09/01/矩生成函数/</id>
+    <published>2019-09-01T07:01:28.000Z</published>
+    <updated>2019-09-01T07:37:57.052Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>参考维基百科 <a href="https://zh.wikipedia.org/wiki/%E7%9F%A9%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B8" target="_blank" rel="noopener">Moment Generating Functions</a></p><h1 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h1><ol><li><p>LetX bearandomvariableswhosem.g.f.ψ(t)isfiniteforallvaluesoft insomeopen<br>interval around the point t = 0. Then, for each integer n &gt; 0, the nth moment of X,<br>E(Xn), is finite and equals the nth derivative ψ(n)(t) at t = 0. That is, E(Xn) = ψ(n)(0)<br>for n = 1, 2, . . . .</p><script type="math/tex; mode=display">\begin{aligned} \psi^{(n)}(0) &=\left[\frac{d^{n}}{d t^{n}} E\left(e^{t X}\right)\right]_{t=0}=E\left[\left(\frac{d^{n}}{d t^{n}} e^{t X}\right)_{t=0}\right] \\ &=E\left[\left(X^{n} e^{t X}\right)_{t=0}\right]=E\left(X^{n}\right) \end{aligned}</script><p>或者通过维基百科上的式子求导更容易理解</p><script type="math/tex; mode=display">\begin{aligned} M_{X}(t) &=\int_{-\infty}^{\infty} e^{t x} f(x) \mathrm{d} x \\ &=\int_{-\infty}^{\infty}\left(1+t x+\frac{t^{2} x^{2}}{2 !}+\cdots\right) f(x) \mathrm{d} x \\ &=1+t m_{1}+\frac{t^{2} m_{2}}{2 !}+\cdots \end{aligned}</script></li><li><p>Let <strong>X</strong> be a random variable for which the m.g.f. is ψ 1 ; let<strong>Y = aX + b</strong>, where a and b<br>are given constants; and let ψ 2 denote the m.g.f. of Y. Then for every value of t such<br>that ψ 1 (at) is finite,</p><script type="math/tex; mode=display">\psi_{2}(t)=e^{b t} \psi_{1}(a t)</script></li><li><p>Suppose that X1 , . . . , Xn are n independent random variables; and for i = 1, . . . , n,<br>letψi denote the m.g.f.of X .Let<strong>Y =X1 + . . . +Xn</strong>,and let the m.g.f.of Y be denoted<br>by ψ. Then for every value of t such that ψi(t) is finite for i = 1, . . . , n,</p><script type="math/tex; mode=display">\psi(t)=\prod_{i=1}^{n} \psi_{i}(t)</script></li><li><p>If the m.g.f.’s of two random variables X1 and X2 are finite and identical for all values<br>of t in an open interval around the point t = 0, then the probability distributions of<br>X1 and X2 must be identical.<br>两个随机变量t=0领域内矩生成函数一样，那么他们的概率分布也是一样的。</p></li></ol><h1 id="高斯分布相关"><a href="#高斯分布相关" class="headerlink" title="高斯分布相关"></a>高斯分布相关</h1><p>高斯分布的矩生成函数可以结合上面定理4证明高斯分布很多其他性质</p><script type="math/tex; mode=display">\psi(t)=\exp \left(\mu t+\frac{1}{2} \sigma^{2} t^{2}\right) \quad \text { for }-\infty<t<\infty</script><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol><li>书籍： <a href="https://book.douban.com/subject/4130410/" target="_blank" rel="noopener">Probability and Statistics 第四版 by Morris H. DeGroot</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h1&gt;&lt;p&gt;参考维基百科 &lt;a href=&quot;https://zh.wikipedia.org/wiki/%E7%9F%A9%E7%94%9F%E6%88
+      
+    
+    </summary>
+    
+      <category term="math" scheme="http://yangbenbo.github.io/categories/math/"/>
+    
+    
+      <category term="概率论" scheme="http://yangbenbo.github.io/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>样本方差分母为什么是n-1</title>
+    <link href="http://yangbenbo.github.io/2019/08/31/%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E5%88%86%E6%AF%8D%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AFn-1/"/>
+    <id>http://yangbenbo.github.io/2019/08/31/样本方差分母为什么是n-1/</id>
+    <published>2019-08-31T04:40:25.000Z</published>
+    <updated>2019-08-31T05:29:09.448Z</updated>
+    
+    <content type="html"><![CDATA[<p>样本方差如下</p><script type="math/tex; mode=display">S^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)^{2}=\frac{1}{n-1}\left(\sum_{i=1}^{n} X_{i}^{2}-n \overline{X}^{2}\right)</script><p>直觉告诉我们似乎分母应该是n，但实际上是n-1，为什么呢？</p><h2 id="参数估计中的无偏性"><a href="#参数估计中的无偏性" class="headerlink" title="参数估计中的无偏性"></a>参数估计中的无偏性</h2><p>设a是未知参数b的估计量，若E(a)=b，则称a是b的无偏估计，否则是有偏估计。</p><p>样本均值：　$\overline{X}=\frac{1}{n} \sum_{i=1}^{n} X_{i}$</p><p>易得</p><script type="math/tex; mode=display">E(\overline{X})=\mu, D(\overline{X})=\frac{\sigma^{2}}{n}</script><script type="math/tex; mode=display">D\left(X_{i}\right)=D(X)=\sigma^{2}(i=1,2, \cdots, n)</script><script type="math/tex; mode=display">\begin{array}{c}{E\left(X_{i}^{2}\right)=D\left(X_{i}\right)+\left[E\left(X_{i}\right)\right]^{2}=\sigma^{2}+\mu^{2}(i=1,2, \cdots, n)} \\ {E\left(\overline{X}^{2}\right)=D(\overline{X})+[E(\overline{X})]^{2}=\frac{\sigma^{2}}{n}+\mu^{2}}\end{array}</script><p>则有</p><script type="math/tex; mode=display">\begin{aligned} E\left(S^{2}\right) &=E\left[\frac{1}{n-1} \sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)^{2}\right]=\frac{1}{n-1} E\left[\left(\sum_{i=1}^{n} X_{i}^{2}-n \overline{X}^{2}\right)\right] \\ &=\frac{1}{n-1}\left[\sum_{i=1}^{n} E\left(X_{i}^{2}\right)-n E\left(\overline{X}^{2}\right)\right]=\frac{1}{n-1}\left[n\left(\mu^{2}+\sigma^{2}\right)-n\left(\mu^{2}+\frac{\sigma^{2}}{n}\right)\right] \\ &=\frac{1}{n-1}(n-1) \sigma^{2}=\sigma^{2} \end{aligned}</script><p>所以样本方差为总体方差的无偏估计</p><p>形象理解ｎ－１</p><p>参数估计除了需要保证采样随机，还需要保证样本之间相互独立，在统计上用自由度（Degrees of freedom），计算样本方差时引入了样本均值，减小了一个自由度，导致样本方差减小（因为均值和样本之间不具有独立性，是折中），所以需要调整分母为ｎ－１修正。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>１．形象化理解可参考<a href="https://www.zhihu.com/question/20099757" target="_blank" rel="noopener">知乎问答</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;样本方差如下&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+S^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)^{2}=\frac{1}{n-1}\lef
+      
+    
+    </summary>
+    
+      <category term="math" scheme="http://yangbenbo.github.io/categories/math/"/>
+    
+    
+      <category term="概率论" scheme="http://yangbenbo.github.io/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>多系统启动盘制作</title>
+    <link href="http://yangbenbo.github.io/2019/07/21/%E5%A4%9A%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/"/>
+    <id>http://yangbenbo.github.io/2019/07/21/多系统启动盘制作/</id>
+    <published>2019-07-21T07:18:56.000Z</published>
+    <updated>2019-07-21T07:22:39.432Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h1><p><a href="http://www.winsetupfromusb.com/supported-sources/" target="_blank" rel="noopener">WinSetupFromUsb</a></p><h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p><img src="/2019/07/21/多系统启动盘制作/WinSetup.png" alt="步骤"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;软件&quot;&gt;&lt;a href=&quot;#软件&quot; class=&quot;headerlink&quot; title=&quot;软件&quot;&gt;&lt;/a&gt;软件&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://www.winsetupfromusb.com/supported-sources/&quot; target=&quot;_b
+      
+    
+    </summary>
+    
+      <category term="systems" scheme="http://yangbenbo.github.io/categories/systems/"/>
+    
+    
+      <category term="重装系统" scheme="http://yangbenbo.github.io/tags/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正交函数</title>
+    <link href="http://yangbenbo.github.io/2019/07/18/%E6%AD%A3%E4%BA%A4%E5%87%BD%E6%95%B0/"/>
+    <id>http://yangbenbo.github.io/2019/07/18/正交函数/</id>
+    <published>2019-07-18T12:17:03.000Z</published>
+    <updated>2019-07-18T14:07:30.008Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>若对于函数系S中任意两个函数内积为0即</p><script type="math/tex; mode=display">\forall i \neq j, \int_{a}^{b} f_{i}(x) \cdot f_{j}(x) d x=0</script><p>则称S为[a,b]上的正交函数系</p><p>如傅里叶变换的三角函数系<br>变换的系数就是函数在基函数上的投影，即函数与相应基函数内积<br>自相关函数同<br>功率信号自相关</p><script type="math/tex; mode=display">R_{x}(\tau)=\lim _{T \rightarrow \infty} \frac{1}{T} \int_{0}^{T} x(t) x(t+\tau) \mathrm{d} t</script><p>能量信号自相关</p><p>当信号中有周期成分时，其自相关函数在 t 很大时都不衰减<br>互相关函数同，有同频率周期成分，则相关函数不收敛，且出现该频率的周期成分</p><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ol><li><a href="https://blog.csdn.net/Einstellung/article/details/77478203" target="_blank" rel="noopener">正交函数集合</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;若对于函数系S中任意两个函数内积为0即&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\forall
+      
+    
+    </summary>
+    
+      <category term="math" scheme="http://yangbenbo.github.io/categories/math/"/>
+    
+    
+      <category term="信号分析" scheme="http://yangbenbo.github.io/tags/%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git基本使用</title>
+    <link href="http://yangbenbo.github.io/2019/07/16/git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yangbenbo.github.io/2019/07/16/git基本使用/</id>
+    <published>2019-07-16T09:36:13.000Z</published>
+    <updated>2019-07-17T12:46:33.338Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><ol><li><p>常用</p><pre><code> git add readme.md git commit -m &quot;add readme.md&quot; git diff readme.md           git status      git log          git log --pretty=oneline git diff HEAD -- readme.md    # 可以不用HEAD git checkout -- readme.md   # 可以丢弃工作区的修改 回到最近一次git commit或git add时的状态 git reset HEAD readme.md    # 把暂存区的修改撤销掉（unstage），重新放回工作区： git rm test.txt     # 从版本库中删除该文件</code></pre></li><li><p>远程仓库</p><pre><code> git remote add origin git@server-name:path/repo-name.git git push -u origin master   # 第一次推送master分支的所有内容 git push origin master   # 可以直接使用git push</code></pre></li><li><p>分支</p><pre><code> git branch   # 查看分支 git branch &lt;name&gt;  # 创建分支 git checkout &lt;name&gt;   # 切换分支 git checkout -b &lt;name&gt;   # 创建+切换分支 git merge &lt;name&gt;   # 合并某分支到当前分支 git branch -d &lt;name&gt;   # 删除分支</code></pre></li><li><p>冲突</p><p> 合并分支时，加上—no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。</p><pre><code> git log --graph --pretty=oneline --abbrev-commit  # 查看分支合并图 git merge --no-ff -m &quot;merge with no-ff&quot; dev   # 普通模式合并</code></pre></li><li><p>BUG分支</p><pre><code> git stash  # 把当前工作现场“储藏”起来，等以后恢复现场后继续工作： git stash list </code></pre><p> 你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：</p><pre><code> $ git stash apply stash@{0}</code></pre><p> 修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；<br> 当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再</p><pre><code> git stash pop  # 回到工作现场。</code></pre></li><li><p>时光穿梭</p><p> 在Git中，用HEAD表示当前版本，也就是最新的提交1094adb…，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。</p><pre><code> git reset --hard commit_id   git reflog   # 查看命令历史，以便确定要回到未来的哪个版本</code></pre></li><li><p>feature</p><pre><code> git branch -D &lt;name&gt;   # 丢弃一个没有被合并过的分支</code></pre><ul><li><p>master分支是主分支，因此要时刻与远程同步；</p></li><li><p>dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；</p></li><li><p>bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；</p></li><li><p>feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。</p></li></ul></li></ol><h1 id="git-遇到的问题"><a href="#git-遇到的问题" class="headerlink" title="git 遇到的问题"></a>git 遇到的问题</h1><ol><li>git add 文件添加失败</li></ol><p>提示modified content, untracked content是因为在add的时候这个目录下面本来就有一个.git文件，自然就会add失败，先删除这个.git文件再add</p><p>还有问题可先删除缓存再来<br>    git rm —cached filename<br>    git add filename<br>    git commit -m “remark”<br>    git push origin master</p><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>1.廖雪峰 <a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git教程</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;基本操作&quot;&gt;&lt;a href=&quot;#基本操作&quot; class=&quot;headerlink&quot; title=&quot;基本操作&quot;&gt;&lt;/a&gt;基本操作&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;常用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; git add readme.md
+ git commit -m &amp;
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yangbenbo.github.io/categories/Linux/"/>
+    
+    
+      <category term="git" scheme="http://yangbenbo.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo本地图片配置</title>
+    <link href="http://yangbenbo.github.io/2019/07/16/hexo%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yangbenbo.github.io/2019/07/16/hexo本地图片配置/</id>
+    <published>2019-07-16T00:45:17.000Z</published>
+    <updated>2019-07-16T00:59:18.262Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="hexo-本地图片，避免图床"><a href="#hexo-本地图片，避免图床" class="headerlink" title="hexo 本地图片，避免图床"></a>hexo 本地图片，避免图床</h2><p>官网有相关说明，<a href="https://hexo.io/zh-cn/docs/asset-folders" target="_blank" rel="noopener">hexo图片上传说明</a></p><pre><code>1. 设置站点配置_config.yml: 将post_asset_folder: false改为post_asset_folder: true2. 执行 npm install hexo-asset-image –save 装插件(或者npm install https://github.com/CodeFalling/hexo-asset-image --save)3. 执行hexo new [xxxx],生成xxxx.md和xxxx文件夹4. 把要引用的图片拷贝到xxxx文件夹中5. 使用\![]\(xxxx/example.jpg)来引用本地图片</code></pre><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ol><li><a href="https://alreadyright.github.io/2019/06/16/aboutHexo/" target="_blank" rel="noopener">hexo建站过程中踩的坑总结</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;hexo-本地图片，避免图床&quot;&gt;&lt;a href=&quot;#hexo-本地图片，避免图床&quot; class=&quot;headerlink&quot; title=&quot;hexo 本地图片，避免图床&quot;&gt;&lt;/a&gt;hexo 本地图片，避免图床&lt;/h2&gt;&lt;p&gt;官网有相关说明，&lt;a href=&quot;https
+      
+    
+    </summary>
+    
+      <category term="blog" scheme="http://yangbenbo.github.io/categories/blog/"/>
+    
+    
+      <category term="blog" scheme="http://yangbenbo.github.io/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu系统配置</title>
+    <link href="http://yangbenbo.github.io/2019/07/14/ubuntu%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yangbenbo.github.io/2019/07/14/ubuntu系统配置/</id>
+    <published>2019-07-14T12:17:42.000Z</published>
+    <updated>2019-07-17T12:37:50.292Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在自己的笔记本安装了ubuntu16，记录一下环境配置</p><h1 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h1><ul><li>chorme</li><li>护眼软件flux安装：先安装crossover，然后安装的windos下的flux</li><li>terminator</li><li>ssr</li><li>输入法 sogo for Linux</li></ul><h2 id="flux"><a href="#flux" class="headerlink" title="flux"></a>flux</h2><p>最初直接装linux版本的在我电脑效果不好，所以装的windows下的。</p><p>crossover免费使用方法：将下载的so文件替换/opt/cxoffice/lib/wine/里的同名文件，记得先备份源文件。</p><h2 id="terminator"><a href="#terminator" class="headerlink" title="terminator"></a>terminator</h2><ol><li><p>安装</p><pre><code> sudo apt-get install terminator</code></pre></li><li><p>配置（没找到文件夹就创建一个）</p><pre><code> cd ~/.config/terminator/ &amp;&amp; sudo gedit config</code></pre></li><li><p>修改配置文件</p><pre><code> [global_config]   focus = system   suppress_multiple_term_dialog = True   title_transmit_bg_color = &quot;#d30102&quot; [keybindings]   close_term = &lt;Primary&gt;&lt;Alt&gt;w [layouts]   [[default]]     [[[child1]]]       parent = window0       profile = default       type = Terminal     [[[window0]]]       parent = &quot;&quot;       type = Window [plugins] [profiles]   [[default]]     background_color = &quot;#2d2d2d&quot;     background_darkness = 0.85     background_image = None     copy_on_selection = True     cursor_color = &quot;#EEE9E9&quot;     font = Ubuntu Mono 13     foreground_color = &quot;#eee9e9&quot;     palette = &quot;#2d2d2d:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#d3d0c8:#747369:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#f2f0ec&quot;     show_titlebar = False     use_system_font = False</code></pre></li></ol><h2 id="ssr"><a href="#ssr" class="headerlink" title="ssr"></a>ssr</h2><ol><li>使用：双击<a href="https://github.com/qingshuisiyuan/electron-ssr-backup" target="_blank" rel="noopener">electron-ssr</a></li><li>账号:<ol><li>免费账号：<a href="https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7" target="_blank" rel="noopener">github</a></li><li>免费账号+服务器订阅：<a href="https://github.com/the0demiurge/ShadowSocksShare" target="_blank" rel="noopener">github</a></li></ol></li></ol><p>感谢他们的付出</p><h1 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h1><ol><li><a href="https://pan.baidu.com/s/1B4lO9MiZVEqehld8ffoeFg" target="_blank" rel="noopener">软件资源</a>,提取码：87q8</li></ol><h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ol><li>terminator<a href="https://blog.csdn.net/ipatient/article/details/51547658" target="_blank" rel="noopener">配置</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近在自己的笔记本安装了ubuntu16，记录一下环境配置&lt;/p&gt;
+&lt;h1 id=&quot;软件安装&quot;&gt;&lt;a href=&quot;#软件安装&quot; class=&quot;headerlink&quot; title=&quot;软件安装&quot;&gt;&lt;/a&gt;软件安装&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;chorme&lt;/li&gt;
+&lt;li&gt;护眼软
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yangbenbo.github.io/categories/Linux/"/>
+    
+    
+      <category term="software" scheme="http://yangbenbo.github.io/tags/software/"/>
+    
+      <category term="ubuntu" scheme="http://yangbenbo.github.io/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown语法</title>
+    <link href="http://yangbenbo.github.io/2019/07/14/Markdown%E8%AF%AD%E6%B3%95/"/>
+    <id>http://yangbenbo.github.io/2019/07/14/Markdown语法/</id>
+    <published>2019-07-14T08:44:31.000Z</published>
+    <updated>2019-07-14T10:56:15.389Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="区块元素"><a href="#区块元素" class="headerlink" title="区块元素"></a>区块元素</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>Markdown常用语法 =（最高级标题），-（第二阶标题）</p><pre><code>最高级标题=二级标题-</code></pre><h2 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h2><p>先断好行，&lt; 放在句首  一般标识符和后面内容之间需要<strong>空格</strong></p><pre><code>&gt; tab 缩进&gt; &gt; &gt;支持嵌套</code></pre><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>无序列表使用 * + -，有序列表 数字 + .</p><pre><code>* 无序列表1. 有序列表</code></pre><p>行首出现数字-句点-空白，要避免这样的状况，你可以在句点前面加上反斜杠。</p><pre><code>&lt;1986\. What a great season.</code></pre><h2 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h2><p>缩进4个空格或者1个制表符，显示成原来的样子</p><pre><code>这是一个普通段落：    这是一个代码区块。</code></pre><h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>三个以上的* 、 - 、底线 建立分割线，行内没有其它东西，中间可以有空格</p><pre><code>- - -***——————</code></pre><h1 id="区段元素"><a href="#区段元素" class="headerlink" title="区段元素"></a>区段元素</h1><h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><pre><code>This is [an example](http://example.com/ &quot;Title&quot;) inline link.[This link](http://example.net/) has no title attribute.This is [an example] [1] reference-style link.</code></pre><p>然后在文件任意处</p><pre><code>[1]:http://example.com/  &quot;Optional Title Here&quot;</code></pre><p>隐式链接</p><pre><code>[Google][][Google]: http://google.com/</code></pre><h2 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h2><p>使用 <em> 和 _    包围，<em>*如果强调两边都有空格，就会被当成普通的符号</em></em></p><pre><code>**强调文字**_strong_</code></pre><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>标记一小段，用  `</p><pre><code>Use the `printf()` function.</code></pre><p>代码中间有反引号，可用多个反引开启或者结束代码区域</p><pre><code>``There is a literal backtick ` here.``</code></pre><h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><pre><code>![Alt text](/path/to/img.jpg)![Alt text](/path/to/img.jpg &quot;Optional title&quot;)</code></pre><h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><h2 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h2><pre><code>&lt;http://example.com/&gt;</code></pre><h2 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h2><p>输出含有其他意义符号原本符号</p><pre><code>\*literal asterisks\*</code></pre><h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ol><li><a href="http://wow.kuapp.com/markdown/" target="_blank" rel="noopener">Markdown 语法说明 (简体中文版)</a>，以及<a href="https://github.com/riku/Markdown-Syntax-CN/" target="_blank" rel="noopener">github 地址</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;区块元素&quot;&gt;&lt;a href=&quot;#区块元素&quot; class=&quot;headerlink&quot; title=&quot;区块元素&quot;&gt;&lt;/a&gt;区块元素&lt;/h1&gt;&lt;h2 id=&quot;标题&quot;&gt;&lt;a href=&quot;#标题&quot; class=&quot;headerlink&quot; title=&quot;标题&quot;&gt;&lt;/a&gt;标题&lt;/h
+      
+    
+    </summary>
+    
+      <category term="program" scheme="http://yangbenbo.github.io/categories/program/"/>
+    
+    
+      <category term="program" scheme="http://yangbenbo.github.io/tags/program/"/>
+    
+      <category term="blog" scheme="http://yangbenbo.github.io/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>simulink 实用快捷键</title>
+    <link href="http://yangbenbo.github.io/2019/07/13/simulink%E5%AE%9E%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://yangbenbo.github.io/2019/07/13/simulink实用快捷键/</id>
+    <published>2019-07-13T13:20:09.000Z</published>
+    <updated>2019-07-14T11:00:16.050Z</updated>
+    
+    <content type="html"><![CDATA[<p>打开模型浏览器： ctrl + shift + L</p><p>视图放大：r</p><p>视图缩小：v</p><p>视图平铺到整个模型：空格/f</p><p>回到默认视图：1</p><p>用鼠标拖动视图：按住q或者p，用鼠标左键按住拖动。这个快捷键在视图比较大时候用到。</p><p>更新模型：ctrl+D</p><p>打开model explorer：ctrl+E</p><p>仿真开始：ctrl+T</p><p>查看simple time： ctrl+J</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;打开模型浏览器： ctrl + shift + L&lt;/p&gt;
+&lt;p&gt;视图放大：r&lt;/p&gt;
+&lt;p&gt;视图缩小：v&lt;/p&gt;
+&lt;p&gt;视图平铺到整个模型：空格/f&lt;/p&gt;
+&lt;p&gt;回到默认视图：1&lt;/p&gt;
+&lt;p&gt;用鼠标拖动视图：按住q或者p，用鼠标左键按住拖动。这个快捷键在视图比较大时候
+      
+    
+    </summary>
+    
+      <category term="software" scheme="http://yangbenbo.github.io/categories/software/"/>
+    
+    
+      <category term="simulink" scheme="http://yangbenbo.github.io/tags/simulink/"/>
+    
+  </entry>
+  
+</feed>
