@@ -2,10 +2,11 @@
 title: Github SSH Key避免Hexo部署输入密码
 date: 2019-10-01 16:19:16
 categories:
-- Hexo
+- Linux
 tags:
 - blog
 - ssh
+- hexo
 
 ---
 # 操作

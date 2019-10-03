@@ -46,6 +46,7 @@ client ubuntu
     sudo mount -t cifs //10.1.1.20/share  /home/yang/share
     
     # vi /etc/fstab 开机自动挂载 具有写权限 注意逗号 之前就是用的空格导致不行
+    # cifs 文件系统  0: 备份频度0执行备份(完全备份) 0：fsck检查次序为0(序号为0的最先检查)
     //10.1.1.20/share	/home/yang/share cifs passward=123,dir_mode=0777,file_mode=0777 0 0  
               
 client Windows
