@@ -88,5 +88,6 @@ theme: 3-hexo
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/yangbenbo/yangbenbo.github.io.git
+#  repo: https://github.com/yangbenbo/yangbenbo.github.io.git
+  repo: git@github.com:yangbenbo/yangbenbo.github.io.git
   branch: master
