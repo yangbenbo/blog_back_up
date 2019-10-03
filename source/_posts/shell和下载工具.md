@@ -44,3 +44,6 @@ tags:
 		wget -i filename.txt      URL地址放在filename.txt文件，自动下载所有文件
 		wget -c  ...  断点续传
 
+
+
+# 注释符号
