@@ -18,8 +18,8 @@ tags:
 	kill <id>     #终止进程
 
 	top   #show process and memory usage
-	shift+P   #sort by cpu
-	shift+M  #sort by memory
+	P   #sort by cpu
+	M  #sort by memory
 	
 	cron  at #周期任务和临时任务安排
 # 网络
@@ -59,6 +59,36 @@ deb
     
     dump restore    # 增量备份和回复 但是备份不会注意删除的文件，有可能恢复了删除的
     cron            # 计划任务配合，自动备份          
+# 查看帮助
+1. --help
+2. man page       // man ls    1代表一般账号可用命令，8代表管理员常用命令，5代表系统配置文件
+        
+        空格  向下翻页
+        PgDn  向下
+        PgUp  向上
+        /string   向下查找string字符串
+        ?string  向上查找
+        n、N  继续下/上一个查找
+
+3. info page   可读性高
+    
+        空格  向下翻页
+        PgDn  向下
+        PgUp  向上
+        Tab    在节点之间移动，节点通常以*表示
+        Enter    进入节点
+        b    光标移动到info界面第一处
+        e    光标移动到info界面最后一个节点
+        n    上一个节点
+        p     下一个节点
+        u    向上移动一层
+        s(/)    查找
+        h,?    显示帮助
+4. 数据同步写入磁盘 sync
+虽然目前的shutdown reboot halt在关机前执行了sync，但是多执行几次确保
+
+
+
 # 其他
 	uname    #查看当前系统信息 包括内核
 	ctrl + L #在资源管理器中显示绝对路径
@@ -66,7 +96,14 @@ deb
 	who      #查看当前登录用户
 	df -t ext4     #查看磁盘使用情况
 	dd if=xxx of=xxx    #拷贝 少用
+	startup  //搜索　软件开启自启动
 	
+	
+- ubuntu 4个工作区 和win10的多桌面一样 ctrl+alt+方向箭头 切换 setting->appearance->behavior->enable workspaces
+
+- deb文件包含二进制文件、库文件、配置文件、帮助文档
+ubuntu软件包：二进制包 (Binary Packages)   源码包(Source Packages)
+Redhat Linux  -> RPM包    ubunut -> Deb包	
 	
 	
 	
@@ -76,12 +113,6 @@ deb
 
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key  
 	
-- ubuntu 4个工作区 和win10的多桌面一样 ctrl+alt+方向箭头 切换 setting->appearance->behavior->enable workspaces
-
-- deb文件包含二进制文件、库文件、配置文件、帮助文档
-ubuntu软件包：二进制包 (Binary Packages)   源码包(Source Packages)
-Redhat Linux  -> RPM包    ubunut -> Deb包
-
 # 引用
 1. [linux下查看软件安装路径](https://blog.csdn.net/liufuchun111/article/details/80402109)
 2. [更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案](https://blog.csdn.net/loovejava/article/details/21837935)

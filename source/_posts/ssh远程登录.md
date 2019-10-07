@@ -29,7 +29,8 @@ SSH之所以能够保证安全，原因在于它采用了非对称加密技术(*
 ssh无秘钥登录报错sign_and_send_pubkey: signing failed: agent refused operation。
 表示ssh-agent 已经在运行了，但是找不到附加的任何keys，就是说你生成的key，没有附加到ssh-agent上，需要附加一下，执行    
 
-	ssh-add   #可能需要先执行eval "$(ssh-agent -s)"
+    eval "$(ssh-agent -s)"
+	ssh-add  
 
 # 参考
 
