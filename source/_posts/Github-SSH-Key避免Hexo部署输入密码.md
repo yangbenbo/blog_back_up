@@ -28,7 +28,9 @@ tags:
     deploy:
       type: git
       repository: git@github.com:yangbenbo/yangbenbo.github.io.git
-      branch: master            
+      branch: master   
+# 注意事项
+1. ubuntu换内核(kernel)启动 需要重新上传ssh-key              
       
 # 参考
 1. [使用Github SSH Key来避免Hexo部署时输入账户密码](https://www.cnblogs.com/yaoel/p/5381826.html)      
