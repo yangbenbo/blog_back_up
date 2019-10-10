@@ -47,5 +47,31 @@ gcc(GNU Compiler Collection)
 ## 临时改变变量
     set var i=1 #临时设置i=1
 ## 查看堆栈
-    bt  #程序调用函数，函数的地址、参数、函数内局部变量都会压入              
+    bt  #程序调用函数，函数的地址、参数、函数内局部变量都会压入
+    
+# ROS中使用
+launch文件
+
+    launch-prefix="xterm -e gdb --args"     //in a separate xterm window
+    launch-prefix="gdb -ex run --args"　　　 //in the same xterm
+    
+使用memcheck启动valgrind来检测程序内存泄露　使用callgrind执行性能分析
+    
+    launch-prefix="valgrind"    //valgrind
+设置ROS节点core文件转储　　coredump　进程突然崩溃的那一刻的内存快照
+
+    ulimit -c unlimited
+    echo 1 > /proc/sys/kernel/core_uses_pid     #将core文件名设置成默认使用进程的pid
+    
+    gdb  program_name  core_name  #查看core文件　program为编译好的　　/var/core_log
+# rosrun启动gdb
+    rosrun --prefix 'gdb -ex run --args' [package_name] [node_name]     
+    
+    
+    
+
+    
+
+# 引用
+1. [ros Tutorial Roslaunch Nodes in Valgrind or GDB](http://wiki.ros.org/roslaunch/Tutorials/Roslaunch%20Nodes%20in%20Valgrind%20or%20GDB)                  
     
