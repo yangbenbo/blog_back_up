@@ -101,6 +101,13 @@ deb
 	
 - ubuntu 4个工作区 和win10的多桌面一样 ctrl+alt+方向箭头 切换 setting->appearance->behavior->enable workspaces
 
+  可以在应用：键盘　设置快捷键　默认的是ctrl+alt+方向键
+  
+  - shift+1 切换到左边工作区　ctrl+shift+1 把当前窗口移动到左边工作区 
+  - shift+2 切换到左边工作区　ctrl+shift+2 把当前窗口移动到右边工作区 
+  
+  切换程序到不同工作区　快捷键或者鼠标拖动就可以
+
 - deb文件包含二进制文件、库文件、配置文件、帮助文档
 ubuntu软件包：二进制包 (Binary Packages)   源码包(Source Packages)
 Redhat Linux  -> RPM包    ubunut -> Deb包	
@@ -111,8 +118,11 @@ Redhat Linux  -> RPM包    ubunut -> Deb包
 # 问题
 - 更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案
 
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key  
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key
+- ctrl+alt  会调出窗口最大最小化之类的窗口(其实就是　激活当前窗口菜单的快捷键)　使得这类快捷键无法使用 
+快捷键窗口找相关快捷键删除 　激活当前窗口菜单冲突了　改成默认的alt+空格就行了       
 	
 # 引用
 1. [linux下查看软件安装路径](https://blog.csdn.net/liufuchun111/article/details/80402109)
 2. [更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案](https://blog.csdn.net/loovejava/article/details/21837935)
+3. [Ubuntu ctrl+alt会导致窗口还原的问题](https://www.cnblogs.com/stono/p/7105083.html)

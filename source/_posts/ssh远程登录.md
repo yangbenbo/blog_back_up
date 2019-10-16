@@ -13,6 +13,8 @@ tags:
 
 SSH之所以能够保证安全，原因在于它采用了非对称加密技术(**RSA**)加密了所有传输的数据。
 
+实现SSH登录需要服务器和客户端各自保存公钥和私钥
+
 # 安装
 
 	sudo apt-get install openssh-client #本地主机运行此条，实际上通常是默认安装client端程序的
@@ -28,6 +30,7 @@ SSH之所以能够保证安全，原因在于它采用了非对称加密技术(*
 	ssh-copy-id server@10.1.1.20 -i copyed_file_name  #指定复制的文件名  
 	
 # 同一台电脑配置github gitlab的SSH
+两种方式：ssh-add  或者使用配置文件 下面介绍使用配置文件
 1. 生成密钥文件
         
         ssh-keygen -t rsa -C '1253156159@qq.com' // GitLab
@@ -64,7 +67,8 @@ SSH之所以能够保证安全，原因在于它采用了非对称加密技术(*
 5. 因为在自己的服务器上搭建的局域网gitlab　所以服务器登录和gitlab登录的ip一样，导致不能登录服务器
     nmap -sT -O 10.1.1.20           //查看ssh端口　默认是22
     ssh server@10.1.1.20 -p 22      //指定端口就可以了
-            
+6. 测试是否连接
+    ssh -T git@github.com            
         
     
 
@@ -80,3 +84,4 @@ ssh无秘钥登录报错sign_and_send_pubkey: signing failed: agent refused oper
 
 1. [SSH简介及两种远程登录的方法](https://blog.csdn.net/li528405176/article/details/82810342)
 2. [如何在一台设备上同时配置github和gitlab的SSH](https://segmentfault.com/a/1190000020010343)
+3. [SSH原理与运用](http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html)
