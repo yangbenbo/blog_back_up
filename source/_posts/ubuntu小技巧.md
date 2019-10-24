@@ -87,8 +87,37 @@ deb
 4. 数据同步写入磁盘 sync
 虽然目前的shutdown reboot halt在关机前执行了sync，但是多执行几次确保
 
+        
+# 高效工具
+1. **tldr** **cheat**
 
+    这两个是很好的命令备忘录　相比man 会简洁很多
+    安装tldr   (Too long, Don't read)
+    
+        sudo npm install -g tldr
+        tldr ls   #　查看ls 常用命令使用
+    安装cheat
 
+        # [对于 Python2]
+        sudo apt install python-pip python-setuptools
+        # [对于 Python3]
+        sudo apt install python3-pip
+        
+        sudo pip install cheat
+        cheat ls  #　查看ls 常用命令使用
+2. the fuck
+    
+    命令行自动纠错工具
+
+        sudo apt update
+        sudo apt install python3-dev python3-pip python3-setuptools
+        sudo pip3 install thefuck
+        
+        # .bashrc 添加如下内容
+        eval $(thefuck --alias)
+        # You can use whatever you want as an alias, like for Mondays:
+        eval $(thefuck --alias FUCK)
+            
 # 其他
 	uname    #查看当前系统信息 包括内核
 	ctrl + L #在资源管理器中显示绝对路径
@@ -126,3 +155,5 @@ Redhat Linux  -> RPM包    ubunut -> Deb包
 1. [linux下查看软件安装路径](https://blog.csdn.net/liufuchun111/article/details/80402109)
 2. [更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案](https://blog.csdn.net/loovejava/article/details/21837935)
 3. [Ubuntu ctrl+alt会导致窗口还原的问题](https://www.cnblogs.com/stono/p/7105083.html)
+4. [github the fuck](https://github.com/nvbn/thefuck)
+4. [github tldr](https://github.com/lord63/tldr.py)

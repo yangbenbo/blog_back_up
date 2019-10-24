@@ -38,6 +38,7 @@ tags:
 - grid 给图形加栅格
 - grid on 给坐标系加栅格
 - grid off 删除当前坐标系的栅格
+- grid minor  细化栅格
 ## 图形覆盖/保持
 - hold on 当前图形保持，且下条图形仍然绘制在该张图形上
 - hold off 新图覆盖旧图 
@@ -59,9 +60,13 @@ tags:
 
 - T = view                      返回当前的4*4阶的转换矩阵T
 ## 例子
+清除变量　输入　关闭绘图
+   
+    clc;clear;close all;    
+绘图
 
     scrsz = get(groot,'ScreenSize');
-    figure('Position',[1 scrsz(4)/2 scrsz(3)/2 scrsz(4)/2]);  % 图像框为屏幕左上角1/4
+    figure('Position',[1 scrsz(4)/2 scrsz(3)/2 scrsz(4)/2]);  % 图像框为屏幕左上角1/4　像素
     limAxes = [-1.2 0.8 -1.1 0.9];
     xx = round(linspace(1,64,nbSamples));   % round 4舍5入
     clrmap = colormap('jet');
