@@ -14,10 +14,20 @@ tags:
 ===
 
 - chorme
-- 护眼软件flux安装：先安装crossover，然后安装的windos下的flux
+- RedShift(如果不行的话考虑 护眼软件flux安装：先安装crossover，然后安装的windos下的flux)
 - terminator
 - ssr
 - 输入法 sogo for Linux
+
+RedShift
+---
+首选挺好用的护眼工具 如果无法使用就用flux
+
+    sudo apt-get install redshift  
+      
+    gedit .config/redshift.conf     # 对应修改相应配置文件
+    redshift -t 5700:3600       # 设置白天和黑夜对应温度   默认5000-4100
+    tldr redshift               # 忘记命令可以使用tldr 或者cheat
 
 flux
 ---
@@ -81,6 +91,13 @@ ssr
 
 1. [软件资源](https://pan.baidu.com/s/1B4lO9MiZVEqehld8ffoeFg),提取码：87q8
 
+开机启动软件设置
+===
+1. 启动软件
+2. ps auxww |grep qq    # 找到软件对应的命令
+3. 在startup里面添加对应命令
+
 引用
 ===
 1. terminator[配置](https://blog.csdn.net/ipatient/article/details/51547658)
+2. [Ubuntu桌面启动后自动执行指定的命令或程序的三种方法](https://blog.csdn.net/davidhzq/article/details/102725116)

@@ -28,8 +28,24 @@ tags:
 	namp -p1-5000 10.1.1.20 #扫描1-5000端口
 	
 # 软件安装路径
-	whereis gcc   #查看gcc安装路径
-	which   gcc  #查看gcc运行路径
+	whereis gcc   #查看gcc安装路径 只是寻找系统中某些特定目录 
+	whereis -l    #查看寻找的特定目录
+	
+	which   gcc   #查看gcc运行路径
+查找命令	
+
+	locate -l 5 passwd  #显示5行结果 通过数据库查找 使用updatedb 更新
+	
+	find / -mtime +4    # 5天前的文件 0表示当前到24小时之前 
+	find / -mtime 4     # 前4-5天的文件 
+	find / -mtime -4    # 4天内的文件 
+	# 对find找到的内容再利用 {}为找到的内容 -exec 到\;是关键词 代表find的额外动作
+	find / -mtime -4 -exec ls -l {} \;
+	
+	find /home -user yang   #属于yang的文件
+	find / -nouser          #不属于任何人的文件 
+    #那个 -a 是 and 的意思,为符合两者才算成功 ubuntu下 -exec 会有点不一样
+	find /etc -size +50k -a -size -60k -exec ls -l {} \;
 rpm
 
 	rpm -ql gcc        #查看gcc相关文件的安装路径
@@ -63,12 +79,14 @@ deb
 1. --help
 2. man page       // man ls    1代表一般账号可用命令，8代表管理员常用命令，5代表系统配置文件
         
+        # man page 是呼叫less来显示说明的 指令同less
         空格  向下翻页
         PgDn  向下
         PgUp  向上
         /string   向下查找string字符串
         ?string  向上查找
         n、N  继续下/上一个查找
+        g G   前进到第一/最后一行  
 
 3. info page   可读性高
     
@@ -110,14 +128,123 @@ deb
     命令行自动纠错工具
 
         sudo apt update
-        sudo apt install python3-dev python3-pip python3-setuptools
+        sudo apt install python3-d
+        ev python3-pip python3-setuptools
         sudo pip3 install thefuck
         
         # .bashrc 添加如下内容
         eval $(thefuck --alias)
         # You can use whatever you want as an alias, like for Mondays:
         eval $(thefuck --alias FUCK)
-            
+# 时间
+- modification time (mtime):
+当该文件的『内容数据』变更时,就会更新这个时间!内容数据指的是文件的内容,而不是文件的属性或
+权限
+- status time (ctime):
+当该文件的『状态 (status)』改变时,就会更新这个时间,举例来说,像是权限与属性被更改了,都会更新
+这个时间啊。
+- access time (atime):
+当『该文件的内容被取用』时,就会更新这个读取时间 (access)。举例来说,我们使用 cat 去读取
+/etc/man_db.conf , 就会更新该文件的 atime 了。 
+    
+        # 查看文件的各个时间  ls 默认mtime
+        date; ls -l /etc/man_db.conf ; ls -l --time=atime /etc/man_db.conf ; \
+        > ls -l --time=ctime /etc/man_db.conf
+        
+        touch -t 201406150202 bashrc    # 修改时间
+touch可以方便修改时间,但是复制的时候即使复制所有属性,但是没办法复制ctime  
+# 文件预设权限 umask
+文件: -rw-rw-rw-  666
+
+目录: drwxrwxrwx  777      
+默认权限-umask权限就是创建文件的默认权限
+       
+       umask
+       umask -S #查看文件预设权限
+       umask 022    #设定umask权限
+## 隐藏属性
+chattr 指令只能在Ext2/Ext3/Ext4 的 Linux 传统文件系统上面完整生效   
+其他的文件系统可能就无法完整的支持这个
+指令了,例如 xfs 仅支持部份参数而已  
+    
+    chattr +i filename  #文件不可更改
+    chattr +a filename  #只能增加内容 不能删除和修改
+    lsattr  filename    #查看文件隐藏属性
+## 特殊权限 SUID, SGID, SBIT
+SUID不是用在目录上,而 SBIT 不是用在文件上
+1. Set UID
+
+    s在user位置
+    
+    /usr/bin/passwd 的-rwsr-xr-x 中的s
+    1. SUID 权限仅对二进制程序(binary program)有效;
+    2. 执行者对于该程序需要具有 x 的可执行权限;
+    3. 本权限仅在执行该程序的过程中有效 (run-time);
+    4. **执行者将具有该程序拥有者 (owner) 的权限**。如果拥有者都没有执行权限 则执行者这个权限为S 空的意思
+    
+    例如普通用户更改密码 调用passwd时就会暂时具有root权限,而使用cat查看密码不属于执行,所以不具有执行权限
+    
+    文件具有 SUID 的特殊权限时,代表当用户执行此一 binary 程序时,在执行过程中用户会暂时具有程序拥有
+    者的权限
+       
+2. Set GID       
+    
+    s在group的位置
+    
+    1. SGID 对二进制程序有用;
+    2. 程序执行者对于该程序来说,需具备 x 的权限;
+    3. 执行者在执行的过程中将会获得该程序群组的支持!
+    
+    目录具有 SGID 的特殊权限时,代表用户在这个目录底下新建的文件之群组都会与该目录的组名相同。    
+3. Sticky Bit
+
+    只针对目录有效
+    
+    1. 当用户对于此目录具有 w, x 权限,亦即具有写入的权限时;
+    2. 当用户在该目录下建立文件或目录时,仅有自己与 root 才有权力删除该文件
+    
+    例如/tmp 的权限是 drwxrwxrwt
+    
+    目录具有 SBIT 的特殊权限时,代表在该目录下用户建立的文件只有自己与 root 能够删除!
+### 特殊权限的修改
+- 4 为 SUID
+- 2 为 SGID
+- 1 为 SBIT  
+    
+      chmod 4755 filename   # 增加SUID         
+# 磁盘管理
+    
+    df -aT  # 查看所有特殊文件格式和名称
+    du -sb  # 查看当前目录下有多少bytes
+系统里面其实还有很多特殊的文件系统存在的。那些比较特殊的文件系统几乎都是在内存当中
+
+1. /proc 的东西都是 Linux 系统所需要加载的系统数据,而且是挂载在『内存当中』
+的, 没有占任何的磁盘空间 
+
+2. /dev/shm/ 目录,其实是利用内存虚拟出来的磁盘空间,通常是总物理内存的一半     
+
+     lsblk  #列出系统上的所有磁盘列表 
+     sudo blkid #列出装置的 UUID 等参数  
+     sudo parted /dev/sdb print #列出磁盘的分区表类型与分区信息
+## 磁盘分区
+磁盘分区: gdisk/fdisk/parted 不要处理正在活动文件系统
+     
+MBR 分区使用 fdisk 分区, GPT 分区使用 gdisk 分区 parted两个都适用
+
+分区过程中 Last sector 后面只需要 : +1G 就可以 (增加的容量) 
+
+**使用的『装置文件名』请不要加上数字,因为 partition 是针对『整个磁盘装置』而不是某个 partition** 
+    
+    cat /proc/partitions    #查看分区信息
+    partprobe -s    #更新核心的分区表信息
+    
+    mkfs.ext4 /dev/sda6  #ext4文件系统 格式化
+    
+    mount -o remount,rw,auto /  #将/ 重新挂载 并加入rw与auto参数
+    mount --bind /var /data/var #将某个目录挂载到其他目录
+在配置 /etc/fstab 文件时中文件系统参数使用default就可以 包含rw, suid, dev, exec, auto, nouser, async
+    
+    
 # 其他
 	uname    #查看当前系统信息 包括内核
 	ctrl + L #在资源管理器中显示绝对路径
@@ -125,7 +252,18 @@ deb
 	who      #查看当前登录用户
 	df -t ext4     #查看磁盘使用情况
 	dd if=xxx of=xxx    #拷贝 少用
-	startup  //搜索　软件开启自启动
+	startup  #搜索　软件开启自启动
+	file filename   # 查看文件类型  二进制 可执行
+	cd ~   # home 目录
+	cd ~yang    # 杨的home目录
+	cd -    # 上一个目录
+	\rm -r /tmp/etc     # 加上反斜杠可以忽略alias的指定选项
+	basename /etc/sysconfig/network # 取得文档名
+	dirname /etc/sysconfig/network  # 取得目录名字
+	nl /etc/issue   # 带行号显示文件内容 也可以使用cat -n
+	echo password | od -t oCc   #找到 password 这几个字的 ASCII 对照
+	file filename # 查看文件类型 ASCII data binary
+	rmdir   #仅能删除空目录
 	
 	
 - ubuntu 4个工作区 和win10的多桌面一样 ctrl+alt+方向箭头 切换 setting->appearance->behavior->enable workspaces
