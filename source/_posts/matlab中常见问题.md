@@ -17,5 +17,7 @@ tags:
         vpa(sind(180),32) = 0.0   % 设置显示精度　32位
     小数转为有理分式      
       
-        rat(0.3)    
+        rat(0.3)   
+2. 关于reshape
+    reshape是按照列来重新排列 不要想当然 之前一个sigma_cube数据(1667x3 其中每个3x3是一个sigma)就是排错了         
         

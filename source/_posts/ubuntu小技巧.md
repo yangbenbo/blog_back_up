@@ -60,7 +60,9 @@ deb
     dpkg -l             #查看全部安装包
     
     dpkg -i xxx.deb     #install   --remove
-    
+## 卸载软件
+    dpkg -l    #列表显示安装的软件 配合grep 过滤
+    dpkg -r packagename    
 # 获取命令
     whatis uname    #一行介绍性文字
     apropos search  #想搜索一个文件又忘了命令  
@@ -243,7 +245,47 @@ MBR 分区使用 fdisk 分区, GPT 分区使用 gdisk 分区 parted两个都适�
     mount -o remount,rw,auto /  #将/ 重新挂载 并加入rw与auto参数
     mount --bind /var /data/var #将某个目录挂载到其他目录
 在配置 /etc/fstab 文件时中文件系统参数使用default就可以 包含rw, suid, dev, exec, auto, nouser, async
-    
+# 网络设置
+查看网络信息
+        
+        nmcli connection show   # 后面可接特定网卡名称如eth0
+        nmcli connection modify eth0 connection.autoconnect yes ipv4.method auto
+        nmcli connection up eth0    #启动
+        
+        hostnamectl     #主机名
+        hostnamectl set-hostname yangbenbo
+        
+        timedatectl # 时间
+        
+        localectl set-locale LANG=en_US.utf8    #设置语系
+        
+        dmidecode   #查看硬件设
+        
+        smartctl -a /dev/sda    #查看磁盘状态
+# 守护进程
+ps 与 top 来观察程序时,都会发现到很多的 {xxx}d 的程序, 通常那就是一些daemon(守护程序)
+
+将目前工作放在**bash后台** 程序后增加 & 或者 ctrl+z
+
+        tar -zpcvf /tmp/etc.tar.gz /etc > /tmp/log.txt 2>&1 &   #错误和标准输出到文件 避免影响terminal
+        jobs    #列出后台进程
+        fg      #将后台工作拿到当前terminal
+        fg jobnumber
+vim 的工作无法被结束喔!因为他无法透过 kill 正常终止 
+
+kill 后面直接加数字(pid)与加上 %number (后台工作号) 的情况是不同的
+   
+        kill -l     #查看常用signal  -1 启动被终止的进程 -9 强制删除一个不正常的工作  -15 默认值 正常结束一项工作 
+        kill %2     # 结束后台2号进程
+注销系统还能运行 at nohup
+        
+动态查看进程变化 load average 分别是1 5 15分钟cpu负载 0-1 /cpu个数
+        
+        top     #按下1 可查看不同cpu的负载  
+        pstree  #查看进程依赖   
+        
+        
+                            
     
 # 其他
 	uname    #查看当前系统信息 包括内核
@@ -294,4 +336,5 @@ Redhat Linux  -> RPM包    ubunut -> Deb包
 2. [更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案](https://blog.csdn.net/loovejava/article/details/21837935)
 3. [Ubuntu ctrl+alt会导致窗口还原的问题](https://www.cnblogs.com/stono/p/7105083.html)
 4. [github the fuck](https://github.com/nvbn/thefuck)
-4. [github tldr](https://github.com/lord63/tldr.py)
+5. [github tldr](https://github.com/lord63/tldr.py)
+6. [理解Linux系统负荷](https://www.ruanyifeng.com/blog/2011/07/linux_load_average_explained.html)
