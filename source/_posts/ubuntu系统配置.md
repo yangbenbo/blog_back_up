@@ -10,8 +10,8 @@ tags:
 ---
 最近在自己的笔记本安装了ubuntu16，记录一下环境配置
 
-软件安装
-===
+# 软件安装
+
 
 - chorme
 - RedShift(如果不行的话考虑 护眼软件flux安装：先安装crossover，然后安装的windos下的flux)
@@ -19,8 +19,7 @@ tags:
 - ssr
 - 输入法 sogo for Linux
 
-RedShift
----
+## RedShift
 首选挺好用的护眼工具 如果无法使用就用flux
 
     sudo apt-get install redshift  
@@ -29,14 +28,13 @@ RedShift
     redshift -t 5700:3600       # 设置白天和黑夜对应温度   默认5000-4100
     tldr redshift               # 忘记命令可以使用tldr 或者cheat
 
-flux
----
+## flux
+
 最初直接装linux版本的在我电脑效果不好，所以装的windows下的。
 
 crossover免费使用方法：将下载的so文件替换/opt/cxoffice/lib/wine/里的同名文件，记得先备份源文件。
 
-terminator
----
+## terminator
 
 1. 安装
 
@@ -76,8 +74,8 @@ terminator
 		    show_titlebar = False
 		    use_system_font = False
 
-ssr
----
+## ssr
+
 1. 使用：双击[electron-ssr](https://github.com/qingshuisiyuan/electron-ssr-backup)
 2. 账号:
 	1. 免费账号：[github](https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7)
@@ -86,18 +84,46 @@ ssr
 感谢他们的付出
 
 
-资源
-===
+## GoldenDict
+一款强大的翻译软件
+1. 安装
+
+        sudo apt install goldendict
+2. 配置
+    - 网络词典 Edit -> Dictionaries -> Sources -> Websites -> Add
+    
+    常用的有:必应、有道、百度,选择一个就可以了，这里选择bing,(youdao的网页不能播放发音)
+    
+        必应：https://cn.bing.com/dict/search?q=%GDWORD%
+        有道：https://dict.youdao.com/search?q=%GDWORD%&ue=utf8
+        百度：https://fanyi.baidu.com/#en/zh/%25GDWORD%25      
+    - 本地词典 Edit -> Dictionaries -> Sources -> Files -> Add
+    
+    《牛津英汉双解美化版》 下载网址[http://download.huzheng.org/zh_CN/](http://download.huzheng.org/zh_CN/)
+    - 屏幕取词 Edit -> Preferences -> Scan Popup
+    - 词形匹配(如果主要使用网络词典，可以不用配置此项) Edit->Dictionaries->Morphology  
+    
+        下载英文构词法规则库,[地址](https://sourceforge.net/projects/goldendict/files/better%20morphologies/1.0/)
+3. 使用　
+    选中单词 Ctrl+C+C　(可以设置)        
+          
+    
+        
+
+# 资源
 
 1. [软件资源](https://pan.baidu.com/s/1B4lO9MiZVEqehld8ffoeFg),提取码：87q8
 
-开机启动软件设置
-===
+# 开机启动软件设置
 1. 启动软件
 2. ps auxww |grep qq    # 找到软件对应的命令
 3. 在startup里面添加对应命令
 
-引用
-===
+# 引用
 1. terminator[配置](https://blog.csdn.net/ipatient/article/details/51547658)
 2. [Ubuntu桌面启动后自动执行指定的命令或程序的三种方法](https://blog.csdn.net/davidhzq/article/details/102725116)
+3. [Ubuntu 18.04 LTS版本 GoldenDict安装与配置](https://www.cnblogs.com/creasing/p/11333728.html)
+4. [Ubuntu,Linux下goldendict词典安装及配置](https://blog.csdn.net/www_helloworld_com/article/details/85019862)
+5. [强烈推荐：Goldendict 及其词典详述(5 月 26 日更新)](https://forum.ubuntu.org.cn/viewtopic.php?f=95&t=265588)
+6. [Linux 下非常好用的字典 GoldenDict](http://einverne.github.io/post/2018/08/goldendict.html)
+
