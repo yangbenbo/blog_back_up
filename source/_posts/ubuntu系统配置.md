@@ -12,12 +12,15 @@ tags:
 
 # 软件安装
 
-
 - chorme
 - RedShift(如果不行的话考虑 护眼软件flux安装：先安装crossover，然后安装的windos下的flux)
 - terminator
 - ssr
 - 输入法 sogo for Linux
+- wine
+- GoldenDict
+- shutter
+- draw.io
 
 ## RedShift
 首选挺好用的护眼工具 如果无法使用就用flux
@@ -28,13 +31,8 @@ tags:
     redshift -t 5700:3600       # 设置白天和黑夜对应温度   默认5000-4100
     tldr redshift               # 忘记命令可以使用tldr 或者cheat
 
-## flux
-
-最初直接装linux版本的在我电脑效果不好，所以装的windows下的。
-
-crossover免费使用方法：将下载的so文件替换/opt/cxoffice/lib/wine/里的同名文件，记得先备份源文件。
-
 ## terminator
+终端分屏工具
 
 1. 安装
 
@@ -83,7 +81,23 @@ crossover免费使用方法：将下载的so文件替换/opt/cxoffice/lib/wine/�
 
 感谢他们的付出
 
+## wine
+可以安装windows程序,这里我用于安装mathtype,写博客用公式就不同切换会windows了
 
+    sudo apt-get install wine
+wine安装软件3中方式
+    
+    wine xxx.exe
+    ./xxx.exe
+    直接双击(可能需要选择wine打开)
+    
+    winecfg （wine的设置~）
+    wine  taskmgr （任务管理器）
+    wine  uninstaller （卸载软件）
+    wine  regedit （注册表）
+    wine  notepad （记事本）
+    wineboot （ 重启wine）
+    
 ## GoldenDict
 一款强大的翻译软件
 1. 安装
@@ -107,8 +121,20 @@ crossover免费使用方法：将下载的so文件替换/opt/cxoffice/lib/wine/�
 3. 使用　
     选中单词 Ctrl+C+C　(可以设置)        
           
-    
-        
+## shutter
+截图软件
+
+        sudo apt install shutter    
+## draw.io
+- 支持谷歌浏览器app(推荐)
+- 支持在线绘图,类似visio
+- [桌面版本](https://github.com/jgraph/drawio-desktop/releases)
+ 
+
+
+导出jpg可设置更改缩放为1000%就可以有较好清晰度
+
+[draw.io](https://www.draw.io/)        
 
 # 资源
 
@@ -126,4 +152,4 @@ crossover免费使用方法：将下载的so文件替换/opt/cxoffice/lib/wine/�
 4. [Ubuntu,Linux下goldendict词典安装及配置](https://blog.csdn.net/www_helloworld_com/article/details/85019862)
 5. [强烈推荐：Goldendict 及其词典详述(5 月 26 日更新)](https://forum.ubuntu.org.cn/viewtopic.php?f=95&t=265588)
 6. [Linux 下非常好用的字典 GoldenDict](http://einverne.github.io/post/2018/08/goldendict.html)
-
+7. [wine 安装（ubuntu中安装windows下软件）](https://blog.csdn.net/qq_34638161/article/details/81271977)
