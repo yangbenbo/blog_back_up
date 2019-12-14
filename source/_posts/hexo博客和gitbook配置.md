@@ -55,6 +55,9 @@ npm 常用命令
     sudo n stable
     
     sudo npm install hexo-cli
+## 引用自己的文章
+
+    {% post_link 文章文件名（不要后缀） 文章标题（可选） %}    
     
 ## 踩过的坑
 1. hexo用着用着报错，提示node版本太低

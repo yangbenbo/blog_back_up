@@ -59,12 +59,12 @@ tags:
 - [az,el]=view                  返回当前的方位角az与仰角el
 
 - T = view                      返回当前的4*4阶的转换矩阵T
-## 例子
-清除变量　输入　关闭绘图
-   
-    clc;clear;close all;    
-绘图
 
+## 例子
+
+例子1
+   
+    clc;clear;close all;    % 清除变量　输入　关闭绘图
     scrsz = get(groot,'ScreenSize');
     figure('Position',[1 scrsz(4)/2 scrsz(3)/2 scrsz(4)/2]);  % 图像框为屏幕左上角1/4　像素
     limAxes = [-1.2 0.8 -1.1 0.9];
@@ -81,6 +81,55 @@ tags:
     axis(limAxes); axis square; 
     set(gca,'xtick',[],'ytick',[]);  % 清除坐标轴刻度 axis off
 
+例子2
+
+    f = figure;
+    hold on;box on;
+    P1 = plot(x, y,'linewidth',1.2);
+    P2 = plot(mean_force, 0,'o','linewidth',1.2);   % 均值
+    P3 = plot(threhold, 0,'o','linewidth',1.2);   % 均值
+    
+    axis([0 28 0 0.14]);
+    
+    width = 240;   % 240pt  US letter 双栏 1pt = 1/72inch   1 inch = 25.4mm
+    xlabel('\fontname{宋体}力模长\fontname{Times New Roman}(N)','Fontname', 'Times New Roman');
+    % xlabel('Torque $M_x$ (Nm)','interpreter','latex','FontSize',8); % Latex格式的label
+    ylabel('\fontname{宋体}概率','Fontname', 'Times New Roman');
+    set(gcf,'unit','points','PaperUnits','points','PaperPosition',[0,0,width,width/5*4],...
+        'position',[500 300 width width/5*4],'color','w','PaperSize',[width, width/5*4]);
+    
+    set(gca, 'Fontsize', 8);   % 坐标轴句柄，设置坐标轴刻度数字样式
+    L1 = legend([P1 P2 P3],'高斯分布','均值','阈值');
+    set(L1,'Location','northeast','Orientation','vertical',...
+        'Fontname', '宋体','FontSize',8,'TextColor','black');% legend 格式
+    % set(gca, 'XTick',0:4:20);  % 设置X轴刻度
+    
+    print('S:\PbD\graph\Force_threhold_change','-djpeg','-r600');
+    
+legend 放置两排 需要鼠标拖动调整位置
+
+    	L1 = legend([P1 P2 P3],'X\fontname{宋体}变扰动力','Y\fontname{宋体}变扰动力','Z\fontname{宋体}变扰动力');
+    
+    	set(L1,'Location','north','Orientation','horizontal',...
+    	    'Fontname', 'Times New Roman','FontSize',8,'TextColor','black');% legend 格式
+    	
+    	ah=axes('position',get(gca,'position'),'visible','off');
+    	L2=legend(ah,[P4 P5 P6],'X\fontname{宋体}恒扰动力','Y\fontname{宋体}恒扰动力',...
+    		'Z\fontname{宋体}恒扰动力','orientation','horizontal','location','north');
+    	
+    	set(L2,    'Fontname', 'Times New Roman','FontSize',8,'TextColor','black');% legend 格式
+    	
+    	set(L1,'box','off');		% 根据需要可以去除legend边框
+    	set(L2,'box','off');
+去除图框白边	
+
+    	set(gca,'looseInset',[0 0 0 0]);   	% 缩放坐标轴 去除图框白边 三维图不是很好用
+设置label等对象位置两种方式
+
+    	x = xlabel('\fontname{宋体}力模长\fontname{Times New Roman}(N)');
+    	set(x,'Position',[0.1,0.1])
+    	
+    	xlabel('\fontname{宋体}力模长\fontname{Times New Roman}(N)','Position',[0.1,0.1]);
 
 
 # 参考
