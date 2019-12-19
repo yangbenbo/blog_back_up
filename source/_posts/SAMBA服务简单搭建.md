@@ -39,21 +39,21 @@ server 服务器
 client ubuntu
     
     sudo apt install smbclient
-    smbclient -L 10.1.1.20   #查看共享目录
-    smbclient //10.1.1.20/share  # IP地址后接共享目录  访问
+    smbclient -L 192.168.10.100   #查看共享目录
+    smbclient //192.168.10.100/share  # IP地址后接共享目录  访问
     
     sudo apt-get install cifs-utils   #下载相应组件
-    sudo mount -t cifs //10.1.1.20/share  /home/yang/share  # 使用这句或者下面一句
-    sudo mount -t cifs -o passward=123,dir_mode=0777,file_mode=0777 //10.1.1.20/share  /home/yang/share  #有写权限 passward 为对应服务器的密码
+    sudo mount -t cifs //192.168.10.100/share  /home/yang/share  # 使用这句或者下面一句
+    sudo mount -t cifs -o passward=123,dir_mode=0777,file_mode=0777 //192.168.10.100/share  /home/yang/share  #有写权限 passward 为对应服务器的密码
     
     # vi /etc/fstab 开机自动挂载 具有写权限 注意逗号 之前就是用的空格导致不行
     # cifs 文件系统  备份 0:不需要 1:每天 2:每两天  fsck 0:不需要 1:需要
     # blkid 查询UUID
-    //10.1.1.20/share	/home/yang/share cifs passward=123,dir_mode=0777,file_mode=0777 0 0  
+    //192.168.10.100/share	/home/yang/share cifs passward=123,dir_mode=0777,file_mode=0777 0 0  
               
 client Windows
 
-    "运行"对话框输入\\10.1.1.20 回车
+    "运行"对话框输入\\192.168.10.100 回车
     选中共享文件夹 右键映射网络驱动器 即可像本地磁盘使用
 # 服务器开机自启动
 
