@@ -138,6 +138,7 @@ deb
         eval $(thefuck --alias)
         # You can use whatever you want as an alias, like for Mondays:
         eval $(thefuck --alias FUCK)
+
 # 时间
 - modification time (mtime):
 当该文件的『内容数据』变更时,就会更新这个时间!内容数据指的是文件的内容,而不是文件的属性或
@@ -155,65 +156,8 @@ deb
         
         touch -t 201406150202 bashrc    # 修改时间
 touch可以方便修改时间,但是复制的时候即使复制所有属性,但是没办法复制ctime  
-# 文件预设权限 umask
-文件: -rw-rw-rw-  666
 
-目录: drwxrwxrwx  777      
-默认权限-umask权限就是创建文件的默认权限
-       
-       umask
-       umask -S #查看文件预设权限
-       umask 022    #设定umask权限
-## 隐藏属性
-chattr 指令只能在Ext2/Ext3/Ext4 的 Linux 传统文件系统上面完整生效   
-其他的文件系统可能就无法完整的支持这个
-指令了,例如 xfs 仅支持部份参数而已  
-    
-    chattr +i filename  #文件不可更改
-    chattr +a filename  #只能增加内容 不能删除和修改
-    lsattr  filename    #查看文件隐藏属性
-## 特殊权限 SUID, SGID, SBIT
-SUID不是用在目录上,而 SBIT 不是用在文件上
-1. Set UID
 
-    s在user位置
-    
-    /usr/bin/passwd 的-rwsr-xr-x 中的s
-    1. SUID 权限仅对二进制程序(binary program)有效;
-    2. 执行者对于该程序需要具有 x 的可执行权限;
-    3. 本权限仅在执行该程序的过程中有效 (run-time);
-    4. **执行者将具有该程序拥有者 (owner) 的权限**。如果拥有者都没有执行权限 则执行者这个权限为S 空的意思
-    
-    例如普通用户更改密码 调用passwd时就会暂时具有root权限,而使用cat查看密码不属于执行,所以不具有执行权限
-    
-    文件具有 SUID 的特殊权限时,代表当用户执行此一 binary 程序时,在执行过程中用户会暂时具有程序拥有
-    者的权限
-       
-2. Set GID       
-    
-    s在group的位置
-    
-    1. SGID 对二进制程序有用;
-    2. 程序执行者对于该程序来说,需具备 x 的权限;
-    3. 执行者在执行的过程中将会获得该程序群组的支持!
-    
-    目录具有 SGID 的特殊权限时,代表用户在这个目录底下新建的文件之群组都会与该目录的组名相同。    
-3. Sticky Bit
-
-    只针对目录有效
-    
-    1. 当用户对于此目录具有 w, x 权限,亦即具有写入的权限时;
-    2. 当用户在该目录下建立文件或目录时,仅有自己与 root 才有权力删除该文件
-    
-    例如/tmp 的权限是 drwxrwxrwt
-    
-    目录具有 SBIT 的特殊权限时,代表在该目录下用户建立的文件只有自己与 root 能够删除!
-### 特殊权限的修改
-- 4 为 SUID
-- 2 为 SGID
-- 1 为 SBIT  
-    
-      chmod 4755 filename   # 增加SUID         
 # 磁盘管理
     
     df -aT  # 查看所有特殊文件格式和名称
@@ -228,6 +172,7 @@ SUID不是用在目录上,而 SBIT 不是用在文件上
      lsblk  #列出系统上的所有磁盘列表 
      sudo blkid #列出装置的 UUID 等参数  
      sudo parted /dev/sdb print #列出磁盘的分区表类型与分区信息
+
 ## 磁盘分区
 磁盘分区: gdisk/fdisk/parted 不要处理正在活动文件系统
      
@@ -245,6 +190,7 @@ MBR 分区使用 fdisk 分区, GPT 分区使用 gdisk 分区 parted两个都适�
     mount -o remount,rw,auto /  #将/ 重新挂载 并加入rw与auto参数
     mount --bind /var /data/var #将某个目录挂载到其他目录
 在配置 /etc/fstab 文件时中文件系统参数使用default就可以 包含rw, suid, dev, exec, auto, nouser, async
+
 # 网络设置
 查看网络信息
         
@@ -262,6 +208,7 @@ MBR 分区使用 fdisk 分区, GPT 分区使用 gdisk 分区 parted两个都适�
         dmidecode   #查看硬件设
         
         smartctl -a /dev/sda    #查看磁盘状态
+
 # 守护进程
 ps 与 top 来观察程序时,都会发现到很多的 {xxx}d 的程序, 通常那就是一些daemon(守护程序)
 
