@@ -235,11 +235,12 @@ source命令可以让一个脚本强行影响其父shell环境
 export命令可以让脚本影响其子shell 
     export EDITOR='gedit'      
 
-运行一个shell脚本时会启动另一个命令解释器。
-每个shell脚本有效地运行在父shell(parent shell)的一个子进程里。 
-这个父shell是指在一个控制终端或在一个xterm窗口中给你命令指示符的进程。
+运行一个shell脚本时会启动另一个命令解释器.
+每个shell脚本有效地运行在父shell(parent shell)的一个子进程里。.
+这个父shell是指在一个控制终端或在一个xterm窗口中给你命令指示符的进程.
+
+    export | grep ROS   #查看ROS相关的bash变量
     
-                   
 ## 读取用户输入
 1. read接受变量名为参数 从标准输入接收到的信息储存 如果没有提供变量 则储存在**REPLY**
 2. 用作输出一段内容后暂停
