@@ -2,7 +2,6 @@
 title: ROS记录
 date: 2019-10-07 11:32:36
 categories:
-- Linux
 - ROS
 tags:
 - NodeHandle
