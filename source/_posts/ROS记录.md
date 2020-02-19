@@ -23,12 +23,14 @@ NodeHandle创建时有自己的命名空间,访问私有名称
     nh.getParam("name", ... );     //  /my_node_name/name
 常用参数设置
     
-    getParam() 
+    getParam()   
     param()
     setParam()
     deleteParam() 
     hasParam()
     searchParam()
+    // 有时需要提示类型
+    n.param<std::string>("my_param", s, "default_value");
 如果参数服务器存在/a/b的参数，你的NodeHandle在/a/c工作空间，searchParam()搜索b会得到/a/b. 
 如果/a/c/b参数增加，搜索就会得到/a/c/b参数。
 # 设置消息级别
@@ -65,6 +67,13 @@ NodeHandle创建时有自己的命名空间,访问私有名称
         rosbag record -a   #记录所有
         <node pkg="rosbag" type="record" name="bag_record" args="/topic_name" />  #消息记录包默认在~/.ros路劲下　除非使用-o(前缀) -O(文件命名)
         rosbag play xxx.bag
+
+# 节点生命周期
+- 当第一个ros::NodeHandle创建时候，会调用ros::start()
+- 最后一个ros::NodeHandle销毁时，会调用 ros::shutdown() (这将关闭所有打开的订阅、发布、服务调用和服务服务器)
+
+
+
 # 遇到的问题        
 ## remap 重映射
 这个坑了我好久

@@ -7,6 +7,8 @@ tags:
 - qt
 ---
 
+不清楚多看qt帮助文档,介绍非常详细
+
 # 常用函数使用
 1. QString的arg()函数可以自动替换掉QString中出现的占位符。
 
@@ -65,5 +67,27 @@ QImage与QPixmap之间的转换:
 设置对话框属性即可,避免子函数结束造成对话框对象析构,
 或者堆上创建对象一直存在(设置父对象容易造成对话框一直占用资源)
 
-    dialog->setAttribute(Qt::WA_DeleteOnClose);                    
-               
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+
+# 文件
+读取:
+- QDataStream:二进制文件读取  
+- QTextStream:自动将 Unicode 编码同操作系统的编码进行转换;也会将换行符进行转换 
+
+有关文件本身信息,可以通过QFileInfo获取
+    
+    QFileInfo info(file);
+    qDebug() << info.baseName();                        
+    // 获取应用程序执行时的当前路径
+    QDir::currentPath()
+
+**最好使用 Qt 整型来进行读写,比如程序中的qint32.
+这保证了在任意平台和任意编译器都能够有相同的行为.**
+
+## 魔术数字
+二进制输出中经常使用的一种技术,放在文件开头用于标示文件
+
+二进制格式是人不可读的，并且通常具有相同的后缀名(比如 dat 之类),
+因此我们没有办法区分两个二进制文件哪个是合法的.
+所以，我们定义的二进制格式通常具有一个魔术数字，用于标识文件的合法性.
+                   
