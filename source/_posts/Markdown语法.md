@@ -129,3 +129,4 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 引用
 ===
 1. [Markdown 语法说明 (简体中文版)](http://wow.kuapp.com/markdown/)，以及[github 地址](https://github.com/riku/Markdown-Syntax-CN/)
+2. [Markdown中文文档](https://markdown-zh.readthedocs.io/en/latest/)

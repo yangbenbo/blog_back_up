@@ -1,10 +1,11 @@
 ---
-title: 临时记录
+title: c++记录
 date: 2019-10-06 16:35:06
 categories:
-- Linux
+- program
+
 tags:
-- gcc
+- c++
 ---
 
 ## g++编译
@@ -148,16 +149,7 @@ Monday等为符号常量，**枚举量**，默认0-6
     [](int a){cout << a}(4)                    
 
 
-## 字符串 
-字符串实际上是使用 null 字符 '\0' 终止的一维字符数组，大小比单词多一个
-
-不需要把 null 字符放在字符串常量的末尾。C++ 编译器会在初始化数组时，自动把 '\0' 放在字符串的末尾。
-
-建议使用c++ string
-
-    char greeting[6] = {'H', 'e', 'l', 'l', 'o', '\0'}; 
-    char greeting[] = "Hello";  
-    
+   
 ## 指向指针的指针
     int **var;   **var
      
@@ -287,6 +279,11 @@ stringstream istringstream   ostringstream
 ## 类型转换
 - 转换很有用，但是在某些情况下，它强制编译器把一个数据看成比他实际更大的类型，占用更多空间，可能会破坏其他数据
 - 转换就是告诉编译器"忘记类型检查　把它看成其他类型"　编译器不会执行类型检查　引入了漏洞，程序出了问题，首先想到类型转换
+
+查看变量类型
+    
+    #include <typeinfo>
+    std::cout<<typeid(var).name()<<std::endl;
 
 1. C风格
 
