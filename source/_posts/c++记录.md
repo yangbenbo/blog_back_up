@@ -334,6 +334,26 @@ constexpr的好处：
 - 编译器可以在编译期对constexpr的代码进行非常大的优化，比如将用到的constexpr表达式都直接替换成最终结果等。
 - 相比宏来说，没有额外的开销，但更安全可靠。
 
+# 遇到的问题
+1. 不同vector 的iterator不能混用
+    
+    迭代器(Iterator)是一个对象，它的工作是遍历并选择序列中的对象，
+    它提供了一种访问一个容器(container)对象中的各个元素，
+    而又不必暴露该对象内部细节的方法。通过迭代器，
+    开发人员不需要了解容器底层的结构，就可以实现对容器的遍历。
+    
+    指针用来遍历**连续存储结构**,迭代器针对容器(不管底层数据结构是否连续),提供堆容器遍历的方法
+    
+    下面这种方式出错,不能简单得把iterator当成一个索引      
+    
+        vector<int>::iterator index_vec_1 = find(vec_1.begin(), vec_1.end(), val);
+        //出错
+        vector<int>::iterator vec_2_new(vec_2.begin(), index_vec_1);  
+        // 正确
+        vector<int>::iterator vec_1_new(vec_1.begin(), index_vec_1);
+        vector<int>::iterator vec_2_new(vec_2.begin(), vec_1_new.size());
+        
+
 # 引用
 1. [C++之enum枚举量声明、定义、使用与枚举类详解](https://blog.csdn.net/Bruce_0712/article/details/54984371)
 2. [C++ 教程](https://www.runoob.com/cplusplus/cpp-tutorial.html)
@@ -343,3 +363,4 @@ constexpr的好处：
 6. [C++中虚继承的作用及底层实现原理](https://blog.csdn.net/bxw1992/article/details/77726390)
 7. [关于constexpr与const](https://blog.csdn.net/qq_22274565/article/details/78719951)
 8. [C++中的const和constexpr](https://www.cnblogs.com/wodehao0808/p/3623590.html)
+9. [迭代器(Iterator)](https://blog.csdn.net/Dove_Knowledge/article/details/71023512?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task)
