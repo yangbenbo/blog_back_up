@@ -151,6 +151,7 @@ Monday等为符号常量，**枚举量**，默认0-6
 
    
 ## 指向指针的指针
+    //函数如果要改变值就传入指针或这引用,要改变指针就得传入指针的指针,因为在函数参数传递是调用拷贝构造函数进行复制
     int **var;   **var
      
 ## 虚继承
@@ -244,22 +245,32 @@ stringstream istringstream   ostringstream
     
 ## 异常处理
 1. 抛出异常
+    关键字throw将创建程序抛出对象的拷贝,然后包含throw的函数返回了这个对象(即使函数返回值没有这个对象),
+    异常导致程序返回的地方和正常return返回的地方不一样.异常发生之前创建的局部对象也将析构(栈反解)
         
         throw "Division by zero condition!";   //类型为const char* 的异常 catch(const char* msg)
-2. 捕获异常
+        try{throw x;}catch(T& e){}   //可以抛出任意,包括内置类型 int,double...,后面用相应的类型来捕获.通常抛出异常创建的类    
+2. 捕获异常:
+    **异常处理器catch必须紧跟try之后,catch只会匹配第一个**,然后系统认为此异常已经处理了,不会继续查找下去,如果还想在抛,就必须throw
         
+    如果没有任何一个层次的异常处理器匹配到异常,terminate()函数调用,在<exception>内,
+       
         try
         {
            // 保护代码
         }catch( ExceptionName e )    //捕获任何异常  (...)
         {
           // 处理 ExceptionName 异常的代码
+          throw;  //可以选择继续上抛,但是要保证这个throw仍然在try语句中(可以是上一层函数的try) 异常对象的所有信息被保留
         }
-                
+             
     ![异常层次图](异常图.png)
     ![异常说明](异常表.png)
-3. assert() 断言语句 用于开发阶段调试 #define NDEBUG 使其在最终发行软件中失效
-4. 定义自己的异常 最好从runtime_error或者logic_error继承 
+3. 异常安全
+    stack的pop()函数没有返回值,很重要的原因就是stack必须保证异常安全,如果为了得到返回值而调用复制构造函数,函数确抛出异常
+    导致没有获得栈顶元素,而且栈定指针下移了一个,这是不安全的,所以分成两步.        
+4. assert() 断言语句 用于开发阶段调试 #define NDEBUG 使其在最终发行软件中失效
+5. 定义自己的异常 最好从runtime_error或者logic_error继承(exception两个最主要的派生类) 
 不要直接从exception继承(没有提供一个参数类型为std::string的构造函数)
         
         class MyError : public runtime_error{
@@ -274,7 +285,22 @@ stringstream istringstream   ostringstream
                 cout<< x.what()<<endl;
             }
         } 
-5. 高级应用  **待续...**   
+### 异常的使用
+1. 尽量使用引用来捕获异常
+    - 避免不必要的对象拷贝
+    - 派生类对象被当做基类对象捕获时,避免对象切割,损失信息
+2. 构造函数抛出异常时,必须注意对象内部的指针和它的清理方式
+3. 不要在析构函数中抛出异常
+    - 析构函数会在抛出其他异常的过程中别调用,避免析构函数抛出异常或者使用可能触发异常的语句(栈反解),导致程序调用teminate()
+    - 如果析构函数可能抛出异常,在析构函数内部编写try,catch,必须自己处理异常,不能抛出
+4. 避免悬挂指针(野指针)
+    构造函数抛出异常,而内部又有指针,因为指针没有析构函数,造成资源无法释放,可以使用智能指针,shared_ptr来处理指向堆内存的指针
+5. 处理简单错误尽量不用异常处理,只需要显示消息然后退出程序就可以了,然后把清理工作交给操作系统
+    cout<<"error message"<<endl;exit(1);             
+
+### exit函数
+    void exit(int value);  // 位于<cstdlib>中
+    exit(0);  //表示正常退出 退出整个进程.main函数要求返回值为int,在main中的exit相当于return
 
 ## 类型转换
 - 转换很有用，但是在某些情况下，它强制编译器把一个数据看成比他实际更大的类型，占用更多空间，可能会破坏其他数据
@@ -314,6 +340,17 @@ stringstream istringstream   ostringstream
         MyType::MyType(int i): Bar(i),m(i+1){//...}
 - 自动析构函数调用：虽然常常需要在初始化列表中显式构造函数调用，但是不需要做显式的析构函数调用，因为对于任何类型只有一个析构函数，并且不屈任何参数
 - 构造函数调用次序是由成员对象在类中声明的次序决定。如果由　初始化列表的次序确定，则会有两个不同构造函数有两种不同调用构造函数顺序，那么析构函数不知道如何逆序调用。
+
+## 随机数发生器
+    #include <cstdlib>
+    #include <iostream>
+    #include <ctime>
+    
+    // time(0) 返回一个和时间相关的的数作为随机数种子,如果不设置或者设置一样的数那么运行产生的随机数都一样
+    srand(time(0));   
+    rand();           // 获取随机数 线性同余法 不是真的随机数 N(j+1) = (A*N(j)+B)(mod M)
+    
+[线性同余法](https://zh.wikipedia.org/wiki/%E7%B7%9A%E6%80%A7%E5%90%8C%E9%A4%98%E6%96%B9%E6%B3%95) 
                        
 ## **待续...**
 ## 动态内存
