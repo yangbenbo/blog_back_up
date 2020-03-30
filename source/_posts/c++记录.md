@@ -241,7 +241,11 @@ stringstream istringstream   ostringstream
     std::ostringstream oss;
     int name_suffix = 1;
     oss << name_suffix;
-    oss.str();       //返回一个新的string对象，替换内置的stringbuf  
+    oss.str();       //返回一个新的string对象，替换内置的stringbuf
+    
+    // 设置输出精度,cout默认是6位有效数字
+    cout.precision(12); //设置为12位有效数字
+    printf("%.12f",val);  //小数点后12位有效数字  
     
 ## 异常处理
 1. 抛出异常
