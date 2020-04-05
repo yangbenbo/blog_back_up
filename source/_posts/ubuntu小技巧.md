@@ -272,11 +272,27 @@ Redhat Linux  -> RPM包    ubunut -> Deb包
 	
 	
 # 问题
-- 更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案
+1. 更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案
 
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key
-- ctrl+alt  会调出窗口最大最小化之类的窗口(其实就是　激活当前窗口菜单的快捷键)　使得这类快捷键无法使用 
-快捷键窗口找相关快捷键删除 　激活当前窗口菜单冲突了　改成默认的alt+空格就行了       
+2. ctrl+alt  会调出窗口最大最小化之类的窗口(其实就是　激活当前窗口菜单的快捷键)　使得这类快捷键无法使用 
+快捷键窗口找相关快捷键删除 　激活当前窗口菜单冲突了　改成默认的alt+空格就行了
+
+3. qt无法输入中文
+    ubuntu16安装搜狗输入法,启动fcitx之后qtcreator无法输入中文,原因是缺少fcitx的支持库**libfcitxplatforminputcontextplugin.so**.
+    - 查找库是否安装
+        
+            dpkg -L fcitx-frontend-qt5 | grep .so
+            sudo apt-get install fcitx-frontend-qt5   #若没有则安装
+    - 拷贝到qt插件库中
+            
+            # 我是用命令行安装qt的,安装目录可能和安装包安装不一样
+            sudo cp libfcitxplatforminputcontextplugin.so /opt/qt59/plugins/platforminputcontexts 
+        /opt 给第三方协力软件放置的目录.比如chrome就在这里.不确认安装目录可以查找
+            
+            sudo find / -name '*platforminputcontexts*'   
+    - 重启qtcreator            
+                           
 	
 # 引用
 1. [linux下查看软件安装路径](https://blog.csdn.net/liufuchun111/article/details/80402109)
@@ -285,3 +301,4 @@ Redhat Linux  -> RPM包    ubunut -> Deb包
 4. [github the fuck](https://github.com/nvbn/thefuck)
 5. [github tldr](https://github.com/lord63/tldr.py)
 6. [理解Linux系统负荷](https://www.ruanyifeng.com/blog/2011/07/linux_load_average_explained.html)
+7. [Ubuntu下Qtcreator无法输入中文的解决办法](https://blog.csdn.net/baidu_33850454/article/details/81212026?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2)
