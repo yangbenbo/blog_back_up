@@ -13,13 +13,22 @@ shell 是一个命令解释器 而不是一门编程语言
 **空格**用来分隔命令和传递给它的参数(或用来分隔命令的两个参数)
 
 ~/.bash_history 记录的是前一次登入以前所执行过的指令, 而至于这一次登入所执行的指令都被暂
-存在内存中,当你成功的注销系统后,该指令记忆才会记录到 .bash_history 当中
+存在内存中,当你成功的注销系统后,该指令记忆才会记录到 .bash_history 当中,如果开启多个bash,则最后登出的bash会把前面的覆盖
+可以使用[job control](http://linux.vbird.org/linux_basic/0440processcontrol.php#background) 
+在一个bash完成工作,主要是前景和背景
+
+    history #列出近期使用的历史命令
+    !66  #执行第 66 笔指令
+    !!   #执行上一个指令，本例中亦即 !66
+    !al  #执行最近以 al 为开头的指令(上头列出的第 67 个)
+
 # SHELL常用符号
 	echo $SHELL      
 	env |grep SHELL
 	sh  #可进入shell 
+	echo $?  #上个指令回传值 上条指令成功为0
 	   
-    1. \* 通用符号，可以表示任意一个字符（包括空字符）或多个字符组成的字符串  ls -l /bin/e*
+    1. * 通用符号，可以表示任意一个字符（包括空字符）或多个字符组成的字符串  ls -l /bin/e*
     2. ? 类似*，但是只能表示单个字符
     3. [] 制定被显示内容的范围 ls [a-c] 显示a 、b 、c文件夹
     4. ！排除符号 用来指定被屏蔽的部分，需要与[]一起使用  ls [!a-c]  不显示a、b、c文件夹
@@ -31,6 +40,17 @@ shell 是一个命令解释器 而不是一门编程语言
 1. 别名
 		# 事实上 .bashrc 是一个shell脚本文件，在用户登录到系统自动运行，可以把想让系统启动时运行的任务写进去
 		alias hs='hexo clean && hexo g && hexo s'  # 注意等号前后无空格  别名相当与快捷键
+		alias   #查看所有命令的别名
+		unalias command #取消
+	终端上快捷键stty -a 查看,set 设置,有bash一般不用设置
+	- Ctrl + C	终止目前的命令
+    - Ctrl + D	输入结束 (EOF)，例如邮件结束的时候；
+    - Ctrl + M	就是 Enter 啦！
+    - Ctrl + S	暂停萤幕的输出
+    - Ctrl + Q	恢復萤幕的输出
+    - Ctrl + U	在提示字元下，將整列命令刪除
+    - Ctrl + Z	『暂停』目前的命令
+    使用 vim 时，若不小心按了 [ctrl]+s 则画面会被冻结。你可以使用 [ctrl]+q 来解除冻结
 		
 2. 重定向 > 输入（覆盖）  >> 输入追加  < 输出  << 立即文档(here document)
 
@@ -38,6 +58,7 @@ shell 是一个命令解释器 而不是一门编程语言
 		cat << EOF      #告诉Shell从键盘接受输入 EOF作为结束，然后查看输入内容
 
 3. 管道  "|"
+    管线命令仅会处理 standard output，对於 standard error output 会予以忽略
 
 		ls -l |grep test
 4. 网络
@@ -68,13 +89,22 @@ shell 是一个命令解释器 而不是一门编程语言
     readonly myUrl      # 只读变量
     
     unset myUrl         #　删除变量
+环境变量RANDOM,产生随机数0~32767,(15位),想产生0~9的数值用declare宣告数值类型
+    
+    declare -i number=$RANDOM*10/32768 ; 
+
+    
 ## 字符串
 ### 引号规则
 1. "" 阻止shell对大多数特殊字符(例如#)进行解释　但是$ ` "　仍然保持其特殊含义
 2. '' 阻止shell对所有字符进行解释 所有字符都会原样输出
 
       单引号字串中不能出现单独一个的单引号（对单引号使用转义符后也不行），但可成对出现，作为字符串拼接使用。
-3. `` 倒引号括起来一个shell　命令时，这个命令将会执行　结果作为这个表达式的值    
+3. `` 倒引号括起来一个shell　命令时，这个命令将会执行　结果作为这个表达式的值
+
+很多时候建议使用$(uname -r) 的形式获取变量或表达式的值,比``清晰,如
+    
+    cd /lib/modules/$(uname -r)/kernel       
 
 字符串变量最好加上"" 清晰度
 ### 常用命令 
@@ -102,6 +132,14 @@ shell 是一个命令解释器 而不是一门编程语言
 
         string="runoob is a great site"
         echo `expr index "$string" io`  # 输出 4  查找字符　i || o 位置
+5. 删除和替换
+    ![删除和替换](delete_replace.png)
+    ![测试和替换](var_test.png)    
+6. 其他常用命令
+
+    - 字元转换命令： tr, col, join, paste, expand
+    - 分割命令： split
+    - 参数代换： xargs        
         
 ## 数组
     array_name=(value0 value1 value2 value3)   
@@ -202,8 +240,9 @@ $? 获得上一条语句返回值
 - 标准输出文件(stdout)：stdout 的文件描述符为1，Unix程序默认向stdout输出数据。
 - 标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。
 
-        command 2 > file    # 错误文件重定向到file
+        command 2 > file    # 错误文件重定向到file 
         command > file 2>&1 # stdout和stderr合并到file 放在>后面的&，表示重定向的目标不是一个文件，而是一个文件描述符
+        tee file   # 双重导向 往下级传输的同时输出一份到屏幕  
 ### 即时脚本 here document
 基本形式
         
@@ -241,12 +280,24 @@ export命令可以让脚本影响其子shell
 
     export | grep ROS   #查看ROS相关的bash变量
     
-## 读取用户输入
-1. read接受变量名为参数 从标准输入接收到的信息储存 如果没有提供变量 则储存在**REPLY**
-2. 用作输出一段内容后暂停
+## 变量键盘读取、阵列与宣告:read, array, declare
+1. read:读取键盘输入
+    
+        read -p "Please keyin your name: " -t 30 named
+- read接受变量名为参数 从标准输入接收到的信息储存 如果没有提供变量 则储存在**REPLY**
+- 用作输出一段内容后暂停
         
         echo "press enter to continue"
         read
+2. declare / typeset:宣告变量类型
+    
+        declare [-aixr] variable
+        选项与参数：
+        -a  ：將后面名为 variable 的变数定义成为阵列 (array) 类型
+        -i  ：將后面名为 variable 的变数定义成为整数数字 (integer) 类型
+        -x  ：用法与 export 一样，就是將后面的 variable 变成环境变数；
+        -r  ：將变数设定成为 readonly 类型，该变数不可被更改內容，也不能 unset
+    注意:变量类型预设为**字符串**,1+2不会计算,除非申明为integer;bash只能进行整数运算,1/3=0                
 
 ## exit trap
 exit 返回信号

@@ -90,4 +90,24 @@ QImage与QPixmap之间的转换:
 二进制格式是人不可读的，并且通常具有相同的后缀名(比如 dat 之类),
 因此我们没有办法区分两个二进制文件哪个是合法的.
 所以，我们定义的二进制格式通常具有一个魔术数字，用于标识文件的合法性.
+
+## tcp实现简单文件传输
+**数字和特定长度字符串相互转换**
+        
+    QString str = QString("%1").arg(10, 4, 10, QChar('0'));
+    qDebug() <<str<<"num "<<str.toInt();
+为防止TCP粘包,通常在开头增加一个或一组固定长度数字表示数据包的大小,类型(类型可用enum+switch)等
+
+    //封包
+    quint16 totalLen = numLen + buff.size();  //数据位长度可自定义,和一次读取大小有关
+    QString lenStr = QString("%1").arg(totalLen, numLen, 10, QChar('0'));
+    buffSend.append(lenStr).append(buff);
+    tcpsocket->write(buffSend);
+    buffSend.clear();
+    //解包
+    quint16 lenMsg = QString(mybuffer.left(4)).toInt();
+    QByteArray msg = mybuff.mid(numLen, lenMsg-numLen);
+    mybuff = mybuff.right(mybuff.size()-lenMsg);  //总缓存区
+其实这里有考虑过使用QDataStream,但是由于通过"<<"写入会有其他信息,
+导致大小不是想要的,通常使用writeRawData来避免    
                    
