@@ -8,7 +8,7 @@ tags:
 - ubuntu
 
 ---
-最近在自己的笔记本安装了ubuntu16，记录一下环境配置
+最近在自己的笔记本安装了ubuntu16，记录一下环境配置,持续更新
 
 # 软件安装
 
@@ -20,6 +20,7 @@ tags:
 - wine
 - GoldenDict
 - shutter
+- smplayer
 - draw.io
 
 ## RedShift
@@ -124,7 +125,13 @@ wine安装软件3中方式
 ## shutter
 截图软件
 
-        sudo apt install shutter    
+        sudo apt install shutter  
+## smplayer
+视频播放软件 可倍速
+    
+    sudo apt-get install smplayer  #可选安装smplayer-skins smplayer-themes
+    # [ ] 分别减速加速	
+           
 ## draw.io
 - 支持谷歌浏览器app(推荐)
 - 支持在线绘图,类似visio
