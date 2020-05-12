@@ -35,17 +35,39 @@ tags:
     -- 插入数据
     insert into brand(factory,name,price,sum, sell, last) values('一汽大众', '奥迪A6', 36, 50, 8, 42);
 
+    -- 更新数据
+    -- update brand set sell=5 , last=70 where factory='上海大众' and name='桑塔纳';
+
 
 
 ## 遇到的问题
-1. 无法插入中文
+### 无法插入中文
+1. 临时修改
     - 查看客户端 编码字符 状态
         
             status;  // Client characterset: utf8
+            #Server characterset 和 Db     characterset 都是utf8
     - 查看所有编码字符
             
             show variables like'%char%';
     - 修改设置(gbk 也是支持中文)            
         
-            mysql>set character_set_database=utf8;
-            mysql>set character_set_server=utf8;            
+            set character_set_database=utf8;
+            set character_set_server=utf8;
+2. 永久修改修改配置文件
+    - 针对未创建的表
+            
+            sudo vim /etc/mysql/my.cnf
+            
+            # 末尾添加
+            [client]
+            default-character-set=utf8
+            [mysqld]
+            character-set-server=utf8
+
+	    /etc/init.d/mysql restart  #重启服务
+    - 针对已经创建的表
+        
+            alter table `tablename` convert to character set utf8;
+            
+                             

@@ -15,7 +15,17 @@ tags:
         QString("[%1, %2]").arg(x).arg(y);
         // 加粗居中
         QString("<center><h1>Press:(%1, %2)</h1></center>").arg(QString::number(event->x()),QString::number(event->y()));
-2. event事件
+        
+        // 数字转字符串也可以用
+        QString::number(num);
+2. 打印
+    打印出错信息
+        
+        #define cout qDebug() << "[" << __FILE__ << ":" << __LINE__ <<"]"
+    \n正常表示(换行)
+        
+        qDebug().noquote() << str;  //直接用qDebug() \r和\n都不能正常显示             
+3. event事件
     **event()函数主要用于事件的分发**
     
     事件处理之后一定要调用父类相应事件处理函数,不然信号就不会继续往后穿,或者使用ignore()函数,如果使用accept()函数就相当如接受信号,不继续传
@@ -42,6 +52,7 @@ tags:
     
         EventLabel *label = new EventLabel;
         label->setMouseTracking(true);
+        
 # 绘图
 Qt 的绘图系统: 使用QPainter在QPainterDevice上进行绘制，它们之间使用QPaintEngine进行通讯（也就是翻译QPainter的指令）。
 
