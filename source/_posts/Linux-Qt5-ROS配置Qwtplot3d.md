@@ -13,12 +13,15 @@ qwtplot3D是一个Qt第三方库,在OpenGL基础上封装了一层可以用来�
 ##　Qt项目使用QwtPlot3d
 1. 安装OpenGL(QwtPlot3d需要OpenGL作为基础)
     这一步网上很多教程,我之前装过,这里略过
-2. 下载QwtPlot3d压缩包
+2. 下载QwtPlot3d压缩包两种选择,建议选a
     
-    a. https://sourceforge.net/projects/qwtplot3d/此链接下载qwtplot3d-0.2.7.zip，使用Qt编译时会出现问题，具体修改措施参考：https://blog.csdn.net/eastonwoo/article/details/37658141
-    b. https://sourceforge.net/p/qwtplot3d/code/HEAD/tarball?path=/branches/multiple_curves_0_2_x 此链接下载qwtplot3d-code-r259-branches-multiple_curves_0_2_x.zip，编译顺利进行。
+    a. 下载分支[multiple_curves_0_2_x](https://sourceforge.net/p/qwtplot3d/code/HEAD/tree/branches/multiple_curves_0_2_x/) 可以一个画面绘制多个图形
     
-    我用的第一种方式,出现的问题 
+    b. 下载[qwt-plot3d](https://sourceforge.net/projects/qwtplot3d/) [修改参考](https://blog.csdn.net/eastonwoo/article/details/37658141)
+    
+    第一种方式顺利编译
+    
+    第二种方式,出现的问题 
     
         ‘gluErrorString’ was not declared in this scope err = gluErrorString(errcode);
     解决方式
@@ -27,12 +30,8 @@ qwtplot3D是一个Qt第三方库,在OpenGL基础上封装了一层可以用来�
            打开 qwtplot3d.pro , 在最前面输入下面这一句  LIBS += -lGLU            
 3. 打开qwtplot3d.pro, 选择Release
     
-    编译后在编译文件夹找到
+    两种方式都可以编译后在编译文件夹找到4个libqwtplot3d.so*文件
         
-        libqwtplot3d.so  
-        libqwtplot3d.so.0  
-        libqwtplot3d.so.0.2  
-        libqwtplot3d.so.0.2.6
     复制这四个文件到存放lib文件的目录,可以自己指定,我的是
     
         /opt/qt59/lib/x86_64-linux-gnu/qtcreator/
@@ -47,7 +46,8 @@ qwtplot3D是一个Qt第三方库,在OpenGL基础上封装了一层可以用来�
     simpleplot只用指定库是因为项目中指定了头文件位置
             
     运行程序如下      
-    ![simpleplot](simpleplot.png)       
+    ![simpleplot](simpleplot_mult.png)    
+       
 ## ROS CmakeLists.txt使用QwtPlot3d
     
     # 把头文件拷贝到include/qwt 下并包含
@@ -60,7 +60,19 @@ qwtplot3D是一个Qt第三方库,在OpenGL基础上封装了一层可以用来�
     # 生成可执行程序并链接库
     add_executable(qwtdemo  src/traj_graph.cpp)
     target_link_libraries(qwtdemo ${QT_LIBRARIES} ${catkin_LIBRARIES}
-        qwtplot3d )   
+        qwtplot3d ) 
+**特别注意:**
+    
+    file(GLOB_RECURSE QT_MOC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS
+        include/qtgui/*.hpp include/qtgui/*.h
+        )        
+这一句如果直接使用*.h,则会在建立的包内匹配*h(include src...),b方式即使把提供头文件包含进来也没问题,
+a方式出错 需要排除qwtplot3d提供的头文件 这里我新建了一个文件include/qwt
+    
+    #  a方式出错 error: undefined reference to `Qwt3D::SurfacePlot::setResolution(int)'
+    /home/yang/project/cam/test/build/qtgui/include/qwt/moc_qwt3d_surfaceplot.cpp:78: error: undefined reference to `Qwt3D::SurfacePlot::setResolution(int)'
+    
+          
 注意到上面只处理了头文件包含,对于库文件有多种处理方式,库文件又分为静态库和动态库,可参考[Linux 中的动态链接库和静态链接库是干什么的？](https://www.zhihu.com/question/20484931/answer/69553616)
     
 1. 指定相对位置(推荐,成功率高)
