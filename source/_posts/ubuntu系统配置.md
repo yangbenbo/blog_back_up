@@ -22,6 +22,7 @@ tags:
 - shutter
 - smplayer
 - draw.io
+- kazam (录屏软件)
 
 ## RedShift
 首选挺好用的护眼工具 如果无法使用就用flux
