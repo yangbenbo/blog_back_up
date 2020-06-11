@@ -147,3 +147,6 @@ tags:
 1. [在virtualenv中设置：`pip install -e .` vs `python setup.py install`](https://www.jb51.cc/python/241778.html)
 2. [如何将自己的Python程序打包--setuptools详解](https://www.jianshu.com/p/9a54e9f3e059)
 3. [Python Numpy 如何交换两行和两列](https://blog.csdn.net/qq_35356840/article/details/88557912)
+4. [Dissecting the Camera Matrix, Part 2: The Extrinsic Matrix](http://ksimek.github.io/2012/08/22/extrinsic/)
+5. [OpenGL投影矩阵(Projection Matrix)构造方法](https://zhuanlan.zhihu.com/p/73034007)
+6. [OpenGL 101: Matrices - projection, view, model](https://solarianprogrammer.com/2013/05/22/opengl-101-matrices-projection-view-model/)
