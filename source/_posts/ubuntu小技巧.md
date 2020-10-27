@@ -231,7 +231,10 @@ kill 后面直接加数字(pid)与加上 %number (后台工作号) 的情况是�
         top     #按下1 可查看不同cpu的负载  
         pstree  #查看进程依赖   
         
-        
+# 杀死僵尸程序
+    top  # 查看是否有僵尸进程 zombie
+    ps -A -ostat,ppid,pid,cmd | grep -e '^[zZ]'        
+    sudo kill -9 ppid(父进程pid)
                             
     
 # 其他
@@ -302,3 +305,4 @@ Redhat Linux  -> RPM包    ubunut -> Deb包
 5. [github tldr](https://github.com/lord63/tldr.py)
 6. [理解Linux系统负荷](https://www.ruanyifeng.com/blog/2011/07/linux_load_average_explained.html)
 7. [Ubuntu下Qtcreator无法输入中文的解决办法](https://blog.csdn.net/baidu_33850454/article/details/81212026?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2)
+8. [Ubuntu查找和杀死僵尸进程](https://blog.csdn.net/wzy_1988/article/details/16944789)

@@ -84,6 +84,8 @@ tags:
 - install 这种方式会在site-packages生成egg文件,里面包含对应的函数和模块,无法修改
 
 ## pybullet 结合 ROS
+将pybullet中获取的图像通过变换获得对应的点云图
+{% pdf OPGL_pointcloud.pdf %}
 1. Image  numpy array to sensor_msgs/Image
         
         from cv_bridge import CvBridge

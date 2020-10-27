@@ -120,5 +120,12 @@ QImage与QPixmap之间的转换:
     QByteArray msg = mybuff.mid(numLen, lenMsg-numLen);
     mybuff = mybuff.right(mybuff.size()-lenMsg);  //总缓存区
 其实这里有考虑过使用QDataStream,但是由于通过"<<"写入会有其他信息,
-导致大小不是想要的,通常使用writeRawData来避免    
-                   
+导致大小不是想要的,通常使用writeRawData来避免  
+
+## 多线程
+    
+    robotarm = new robotArm();  //robotArm继承QObject
+    connect(ui.pushButton, &QPushButton::clicked, robotarm, &robotArm::InitPos);
+    QThread *pthread = new QThread(this);
+    robotarm->moveToThread(pthread);
+    pthread->start();           

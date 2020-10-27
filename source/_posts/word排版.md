@@ -38,9 +38,29 @@ mathtype 可以插入公式序号 引用(双击公式序号)
 
 可以先在mathtype设置好格式，存储为样板(10pt)
 
+# 批量修改word图片为灰度图或彩图
+Alt+F11 进入宏界面->插入->模块->粘贴下列代码->F5运行
+
+    Sub xx()
+    Dim i As Integer
+    For i = 1 To ActiveDocument.InlineShapes.Count
+    If ActiveDocument.InlineShapes(i).Type = 3 Then
+    ActiveDocument.InlineShapes(i).PictureFormat.ColorType = msoPictureGrayscale
+    End If
+    Next
+    End Sub
+
+几种样式如下
+- 自动：msoPictureAutomatic
+- 黑白：msoPictureBlackAndWhite
+- 灰度：msoPictureGrayscale
+- 冲蚀：msoPictureMixed
+- 水印：msoPictureWatermark
+
 # 参考文献 
 
 {% post_link word参考文献交叉引用 交叉引用 %}
 
 # 引用
 1. 维基百科 [点 (印刷)](https://zh.wikipedia.org/wiki/%E9%BB%9E_(%E5%8D%B0%E5%88%B7))
+2. [Word文档里的图片怎么批量修改图片颜色灰度变回彩色](https://wenwen.sogou.com/z/q807873456.htm)
