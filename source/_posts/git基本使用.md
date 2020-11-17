@@ -7,6 +7,13 @@ tags:
 - git
 
 ---
+
+git管理版本主要分三个地址进行层次提交
+- 工作区(Working Directory):当前目录,即电脑能看到的目录
+- 版本库(Repository):
+    - 暂存区(stage或index):git add提交目的区域;
+    - 分支(如master):git commit则会提交目的区域
+
 基本操作
 ===
 1. 常用
@@ -18,9 +25,14 @@ tags:
 		git log         
 		git log --pretty=oneline
 		git diff HEAD -- readme.md    # 可以不用HEAD
-		git checkout -- readme.md   # 可以丢弃工作区的修改 回到最近一次git commit或git add时的状态
-		git reset HEAD readme.md    # 把暂存区的修改撤销掉（unstage），重新放回工作区：
 		git rm test.txt     # 从版本库中删除该文件
+		
+		# 从暂存区恢复,可以丢弃工作区的修改 回到最近一次git commit或git add时的状态
+		git checkout -- readme.md   
+		# 把暂存区的修改撤销掉（unstage）,重新放回工作区,HEAD表示当前分支
+		git reset HEAD readme.md    
+		# 分支的回退针对已经进行了git commit操作
+		git reset --hard commitid
 
 2. 远程仓库
 
@@ -54,10 +66,13 @@ tags:
 		git stash pop  # 回到工作现场。
 6. 时光穿梭
 		
-	在Git中，用HEAD表示当前版本，也就是最新的提交1094adb...，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+	在Git中，用HEAD表示当前版本，也就是最新的提交版本(针对git log),上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
 
 		git reset --hard commit_id  
 		git reflog   # 查看命令历史，以便确定要回到未来的哪个版本
+		# 回到之前版本发现未追踪文件,这是因为还没add 或commit就切换版本
+		# 确认这些文件没用的话就可以直接clean,一般情况最好保留一个版本
+		git clean -df  
 7. feature
 
 		git branch -D <name>   # 丢弃一个没有被合并过的分支
@@ -69,7 +84,15 @@ tags:
 
 	- feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
 
-
+8. 合并commit
+    - git log 提交历史,显示提交过版本信息,不包括删除的commit和reset操作
+    - git reflog 命令历史,显示所有操作记录,包括提交,回退,合并等,一般用来回退
+    
+    合并commit针对git log
+        
+        git log     #查看commit记录
+        git rebase -i commitid  # 这里的id是不需要合并的commit对应id
+        # 进入vim模式,根据提示进行pick(执行commit)或者squash(合并commit)
 
 git 遇到的问题
 ===

@@ -190,6 +190,12 @@ D继承了B C的数据成员和分别指向B C的指针
 - iterators(迭代器)    vector<int>::iterator v = vec.begin(); v++; 返回指向向量开头的迭代器   
            
 ## 文件和流
+如果一个数字太大,无法使用 setprecision 指定的有效数位数来打印,则许多系统会以科学表示法的方式打印.
+比如setprecision(5), 145678.99 输出 1.4568e+005
+
+为了让浮点输出以固定点或小数点表示法显示,使用流操作符fixed,结合setprecision(2)表示小数点后显示的位数
+    
+    log_file << std::fixed << std::setprecision(8) << force_sensor_val(0) << std::endl;
 
 ### 文件输入输出流
 1. fstream ofstream ifstream

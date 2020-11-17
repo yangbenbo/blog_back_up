@@ -34,6 +34,9 @@ tags:
 	which   gcc   #查看gcc运行路径
 查找命令	
 
+	locate -i frankaconfig  # 不区分大小写 匹配 *frankaconfig*
+	find / -iname '*frankaconfig*'  #同上,区分大小写则参数是-name 不要i(case-insensitive)
+	
 	locate -l 5 passwd  #显示5行结果 通过数据库查找 使用updatedb 更新
 	
 	find / -mtime +4    # 5天前的文件 0表示当前到24小时之前 

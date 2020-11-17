@@ -51,6 +51,53 @@ CMake构建系统通过ROS包中的CMakeList.txt来构建软件包。
  - < NAME > _LIBRARIES或 _LIBS - 由包导出的库
  - < NAME > _DEFINITIONS - ?
  - …
+### cmake 中的find_package
+- 模块模式.属于精简格式,搜索所有名为Find<package>.cmake的文件，这些文件的路径由变量由安装CMake时指定的CMAKE_MODULE_PATH变量指定。如果查找到了该文件，它会被CMake读取并被处理。
+- 配置模式.没有找到任何模块就会进入配置模式.试图查找一个由待查找的包提供的配置文件的位置。查找<package>Config.cmake或者<package全小写>-config.cmake
+搜索路径包括,比如ros内部定义了CMAKE_PREFIX_PATH=/opt/ros/kinetic/share
+
+       <package>_DIR
+       CMAKE_PREFIX_PATH
+       CMAKE_FRAMEWORK_PATH
+       CMAKE_APPBUNDLE_PATH
+
+编译第三方库如软件时需要知道头文件路径(gcc的-I参数),库文件路径(gcc的-L参数),库文件名字(gcc的-l参数)
+
+比如在CMakeList.txt中
+
+    include_directiories(/usr/include/curl)
+    target_link_libraries(myprogram path/curl.so)
+借助cmake提供的finder,使用cmake的Modules目录下的FindCURL.cmake，相应的CMakeList.txt 文件：
+    
+    find_package(CURL REQUIRED)
+    include_directories(${CURL_INCLUDE_DIR})
+    target_link_libraries(curltest ${CURL_LIBRARY})
+#### find_package原理
+find_package会在模块路径中查找Find.cmake,路径:变量${CMAKE_MODULE_PATH}中的所有目录。
+如果没有，然后再查看它自己的模块目录/usr/share/cmake-3.5/Modules/(具体值通过在CMakeLists.txt中写message(${CMAKE_ROOT})输出).这称为模块模式.
+
+查看包
+    
+        cmake --help-module-list # 双击Tab会有提示   
+        cmake --help-module Find FindBZip2     #查看Bzip2的帮助
+        
+        # 输出如下,可知道对应头文件和源文件变量名
+        FindBZip2
+        ---------
+        
+        Try to find BZip2
+        
+        Once done this will define
+        
+        ::
+        
+         BZIP2_FOUND - system has BZip2
+         BZIP2_INCLUDE_DIR - the BZip2 include directory
+         BZIP2_LIBRARIES - Link these to use BZip2
+         BZIP2_NEED_PREFIX - this is set if the functions are prefixed with BZ2_
+         BZIP2_VERSION_STRING - the version of BZip2 found (since CMake 2.8.8)
+
+             
      
 ## 为什么Catkin包是组件形式
 Catkin的包并不是catkin的真正组成部分。而catkin采用CMake的组件功能，主要是为了节省打字时间。
@@ -183,10 +230,50 @@ ${PROJECT_NAME}根据project中的内容生成，此处是robot_brain
     
     find_package(Armadillo 5.4 REQUIRED)
     target_link_libraries(tp_gmr_node ${catkin_LIBRARIES} ${ARMADILLO_LIBRARIES})
+
+# CMake
+下面主要讲CMake对应CMakelists.txt中对应内容,和ROS无光
+
+## 安装与测试
+安装MathFuncitons到${CMAKE_INSTALL_PREFIX}/bin,安装MathFunctions.h到${CMAKE_INSTALL_PREFIX}/include.其实就是拷贝文件
+${CMAKE_INSTALL_PREFIX}在ubuntu系统上默认是/usr/local
+
+    install (TARGETS MathFunctions DESTINATION bin)
+    install (FILES MathFunctions.h DESTINATION include)        
+
+终端运行`make install` 安装文件,如果没有权限则需要切换为管理员
+    
+测试可以在CMakeLists.txt中编写
+    
+    include(CTest)
+    
+    # does the application run 
+    # 第一个参数是测试的提示 第二个参数的可执行程序 第三个参数是程序带的参数 
+    add_test (TutorialRuns Tutorial 25)
+    
+    # does it sqrt of 25
+    add_test (TutorialComp25 Tutorial 25)
+    set_tests_properties (TutorialComp25 PROPERTIES PASS_REGULAR_EXPRESSION "25 is 5")
+    
+    # does it handle negative numbers
+    add_test (TutorialNegative Tutorial -25)
+    set_tests_properties (TutorialNegative PROPERTIES PASS_REGULAR_EXPRESSION "-25 is 0")
+    
+    # does it handle small numbers
+    add_test (TutorialSmall Tutorial 0.0001)
+    set_tests_properties (TutorialSmall PROPERTIES PASS_REGULAR_EXPRESSION "0.0001 is 0.01")
+    
+    # does the usage message work?
+    add_test (TutorialUsage Tutorial)
+    set_tests_properties (TutorialUsage PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*number")
+
+然后终端运行`make test`即可测试程序
+
 # 引用
 1. [ROS中的CMakeLists.txt](https://blog.csdn.net/u013243710/article/details/35795841)
 2. [catkin CMakeLists.txt](http://wiki.ros.org/catkin/CMakeLists.txt#Finding_Dependent_CMake_Packages)
 3. [ROS下的CMakeList.txt编写](https://blog.csdn.net/turboian/article/details/74604052)
+4. [cmake教程4(find_package使用)](https://blog.csdn.net/haluoluo211/article/details/80559341?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf)
  
     
   
