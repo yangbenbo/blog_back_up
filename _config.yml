@@ -91,3 +91,9 @@ deploy:
 #  repo: https://github.com/yangbenbo/yangbenbo.github.io.git
   repo: git@github.com:yangbenbo/yangbenbo.github.io.git
   branch: master
+
+# 全文搜索
+search:
+  path: search.xml
+  field: post
+
