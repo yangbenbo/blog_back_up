@@ -1,8 +1,7 @@
 # Yang Blog
 
 
-![镇楼](http://ww1.sinaimg.cn/large/005O1m52gy1g4zpwgkjcdj31hc0u01kx.jpg)
- 
+![镇楼](img/jun.jpg)
 记录技术点点滴滴
 
 
