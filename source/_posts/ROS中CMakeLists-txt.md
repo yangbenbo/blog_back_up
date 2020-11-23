@@ -174,17 +174,14 @@ ${PROJECT_NAME}根据project中的内容生成，此处是robot_brain
     # package.xml文件中加上 
     <build_depend>message_generation</build_depend>
     <run_depend>message_runtime</run_depend>
-1. 如果构建的对象依赖于其他需要构建消息/服务/响应的构建对象，
-则需要向目标catkin_EXPORTED_TARGETS添加明确的依赖关系，
-以便它们以正确的顺序构建。 这种情况比较常用，除非您的包真的不使用ROS的任何部分。 
-但这种依赖关系不能自动传递。some_target是由add_executable()设置的目标的名称）    
+1. 如果构建的对象依赖于其他包提供的消息/服务/动作的头文件,
+则需要向目标catkin_EXPORTED_TARGETS添加明确的依赖关系,以便它们以正确的顺序构建。     
     
-        add_dependencies(some_target${catkin_EXPORTED_TARGETS})
-2. 如果需要构建消息或服务的包以及使用这些消息和/或服务的可执行文件，
-则需要为自动生成的消息目标创建明确的依赖关系，以便以正确的顺序构建它们。 
-（some_target是由add_executable()设置的目标的名称）
+        add_dependencies(some_target ${catkin_EXPORTED_TARGETS})  # 通常是find_package中找到的包导出的对象
+2. 如果构建的对象依赖自己包定义的消息或服务
 
-        add_dependencies(some_target ${${PROJECT_NAME}_EXPORTED_TARGETS})    
+        add_dependencies(some_target ${${PROJECT_NAME}_EXPORTED_TARGETS})
+    具体的变量包含的内容可以通过`message ${${PROJECT_NAME}_EXPORTED_TARGETS}`查看             
 
 ## 例子
 现在有两个依赖于std_msgs和sensor_msgs的消息MyMessage1.msg和MyMessage2.msg，
@@ -239,8 +236,25 @@ ${PROJECT_NAME}根据project中的内容生成，此处是robot_brain
 ${CMAKE_INSTALL_PREFIX}在ubuntu系统上默认是/usr/local
 
     install (TARGETS MathFunctions DESTINATION bin)
-    install (FILES MathFunctions.h DESTINATION include)        
+    install (FILES MathFunctions.h DESTINATION include)
 
+下面部分ROS和cmake规则是一样的,只是安装到的位置不一样,比如cmake指定相对于${CMAKE_INSTALL_PREFIX}下的bin,只需要替换变量即可
+1. 安装工程中的目标(targets,即库和可执行文件).对于动态库不是DLL的平台对应的含义如下代码.DLL平台(给予Windows的系统),动态库的DLL部分被当做一个RUNTIME目标而对应的导出库被当做是一个ARCHIVE目标.
+
+        install(TARGETS your_library your_other_library
+                ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}   # 静态库
+                LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}   # 动态库
+                RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})   # 可执行文件
+2. 安装库使用的头文件(函数调用接口)
+    
+        install(DIRECTORY include/${PROJECT_NAME}/
+                DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+3. 如果文件夹内有不需要安装的如这里是svn仓库,可以排除.svn
+    
+        install(DIRECTORY include/${PROJECT_NAME}/
+                DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+                PATTERN ".svn" EXCLUDE)
+                
 终端运行`make install` 安装文件,如果没有权限则需要切换为管理员
     
 测试可以在CMakeLists.txt中编写
@@ -269,11 +283,24 @@ ${CMAKE_INSTALL_PREFIX}在ubuntu系统上默认是/usr/local
 
 然后终端运行`make test`即可测试程序
 
+## 为顶层目标增加一个依赖
+让一个顶层目标依赖于其他的顶层目标。一个顶层目标是由命令ADD_EXECUTABLE，ADD_LIBRARY，或者ADD_CUSTOM_TARGET产生的目标。
+为这些命令的输出引入依赖性可以保证某个目标在其他的目标之前被构建。
+
+如下是在构建目标时使用了ROS中自定义的消息和服务的文件,增加依赖可以确保构建目标之前先生成对应的头文件
+    
+    add_dependencies(your_program ${catkin_EXPORTED_TARGETS})
+    add_dependencies(your_library ${catkin_EXPORTED_TARGETS})
+
+## 补充 待整理
+    add_compile_options(-Wall -Wextra)  # -Wall 打开编译输出警告 -Wextra打印一些额外的警告 是gcc的编译参数
+
 # 引用
 1. [ROS中的CMakeLists.txt](https://blog.csdn.net/u013243710/article/details/35795841)
 2. [catkin CMakeLists.txt](http://wiki.ros.org/catkin/CMakeLists.txt#Finding_Dependent_CMake_Packages)
 3. [ROS下的CMakeList.txt编写](https://blog.csdn.net/turboian/article/details/74604052)
 4. [cmake教程4(find_package使用)](https://blog.csdn.net/haluoluo211/article/details/80559341?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf)
+5. [GCC 警告选项 -Werror](https://blog.csdn.net/cui918/article/details/53187643)
  
     
   
