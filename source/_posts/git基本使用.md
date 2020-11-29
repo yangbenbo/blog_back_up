@@ -90,23 +90,55 @@ git管理版本主要分三个地址进行层次提交
     
     合并commit针对git log
         
-        git log     #查看commit记录
-        git rebase -i commitid  # 这里的id是不需要合并的commit对应id
-        # 进入vim模式,根据提示进行pick(执行commit)或者squash(合并commit)
+            git log     #查看commit记录
+            git rebase -i commitid  # 这里的id是不需要合并的commit对应id
+            # 进入vim模式,根据提示进行pick(执行commit)或者squash(合并commit)
+9. .gitignore
+    - 忽略操作系统自动生成的文件，比如缩略图等；
+    - 忽略编译生成的中间文件、可执行文件等，也就是如果一个文件是通过另一个文件自动生成的，那自动生成的文件就没必要放进版本库，比如Java编译产生的.class文件；
+    - 忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件。
+        
+            /build/  # 匹配根目录下build文件夹下所有文件, 特别注意/的使用
+            build/  # 匹配目录下build文件夹下所有文件,包括/child/build/
+            !lib.a  # 除开lib.a, 即需要跟踪
+            *.pyc   # 所有以.pyc结尾的文件 
+            *.ipynb_checkpoints # JupyterNotebook创建的自动保存的文件,可以通过 “File > Revert to Checkpoint“恢复
+    
+    git只会跟踪文件,不会跟踪空文件夹        
+    
+    pyc文件是由py文件经过编译后，生成的二进制文件，是一种byte code，py文件变成pyc文件后，加载的速度有所提高，而且pyc是一种跨平台的字节码，是由Python的虚拟机来执行的
+    python执行文件流程
+        - 完成模块的加载和链接；
+        - 将源代码翻译为PyCodeObject对象（字节码），并将其写入内存当中（方便CPU读取，起到加速程序运行的作用）；
+        - 从上述内存空间中读取指令并执行；
+        - 程序结束后，根据命令行调用情况（即运行程序的方式）决定是否将PyCodeObject写回硬盘当中（也就是直接复制到.pyc或.pyo文件中）；
+        - 之后若再次执行该脚本，则先检查本地是否有上述字节码文件。有则执行，否则重复上述步骤。    
+    
+    检查.gitignore哪条规则匹配了App.class可用如下命令(感觉不是很好用)
+    
+        git check-ignore -v App.class
 
 git 遇到的问题
 ===
 
-1. git add 文件添加失败
+1. git add file
 
 提示modified content, untracked content是因为在add的时候这个目录下面本来就有一个.git文件，自然就会add失败，先删除这个.git文件再add
 
 还有问题可先删除缓存再来
+
 	git rm --cached filename
 	git add filename
 	git commit -m "remark"
 	git push origin master
 
+修改或生成.gitignore在`git add .`之后会导致已经被跟踪的文件无法去除跟踪状态
+
+    git rm -r --cached .
+    git add .
+
 引用
 ---
-1.廖雪峰 [Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)
+1. 廖雪峰 [Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)
+2. [A collection of .gitignore templates](https://github.com/github/gitignore)
+3. [Python之pyc文件作用及生成方法](https://blog.csdn.net/zong596568821xp/article/details/87341933)

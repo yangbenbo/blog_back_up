@@ -83,6 +83,26 @@ tags:
         pip install -e /path/to/your/setup.py  # 项目根目录                  
 - install 这种方式会在site-packages生成egg文件,里面包含对应的函数和模块,无法修改
 
+## python2和3用法区别
+1. super函数
+    super() 函数是用于调用父类(超类)的一个方法。
+    super() 是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。
+    
+    python3 可以使用直接使用 super().xxx 代替 super(Class, self).xxx :
+    
+        #!/usr/bin/python
+        # -*- coding: UTF-8 -*-
+         
+        class A(object):   # Python2.x 记得继承 object
+            def add(self, x):
+                 y = x+1
+                 print(y)
+        class B(A):
+            def add(self, x):
+                super(B, self).add(x)  # python3 直接super().add(x)
+        b = B()
+        b.add(2)  # 3
+
 ## pybullet 结合 ROS
 将pybullet中获取的图像通过变换获得对应的点云图
 {% pdf OPGL_pointcloud.pdf %}
