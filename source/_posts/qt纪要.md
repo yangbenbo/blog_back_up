@@ -52,6 +52,14 @@ tags:
     
         EventLabel *label = new EventLabel;
         label->setMouseTracking(true);
+4. 控制调用触发信号
+    比如模拟按钮点击效果
+        
+        ui.pushButton->clicked();  
+    获取所有button
+    
+        QList<QPushButton *>  m_button_list = this->findChildren<QPushButton *>();
+                      
         
 # 绘图
 Qt 的绘图系统: 使用QPainter在QPainterDevice上进行绘制，它们之间使用QPaintEngine进行通讯（也就是翻译QPainter的指令）。
@@ -128,4 +136,21 @@ QImage与QPixmap之间的转换:
     connect(ui.pushButton, &QPushButton::clicked, robotarm, &robotArm::InitPos);
     QThread *pthread = new QThread(this);
     robotarm->moveToThread(pthread);
-    pthread->start();           
+    pthread->start();
+
+## Qt信号自定义数据类型
+原生的信号与槽连接传参，只支持基本的数据类型，比如char,int, float,double.
+直接使用自定义信号,比如结构体,类等编译不会报错,执行会报错
+有两种方法
+1. 注册自定义类型
+    
+        #include<QMetaType>       
+        
+        qRegisterMetaType<joydata>("joydata"); //自定义类型对应的变量和名称
+2. 使用直接连接方式`Qt::DrectConnection`,这种方式在需要把耗时槽函数放在子线程不适用(队列连接)
+        
+        connect(&subThread,SIGNAL(ui.pushButton, &QPushButton::clicked, robotarm, &robotArm::InitPos, Qt::DrectConnection);
+
+## 引用
+1. [Qt信号与槽传递自定义数据类型——两种解决方法](https://www.cnblogs.com/tid-think/p/9300457.html)                 
+                         
