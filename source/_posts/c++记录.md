@@ -399,7 +399,8 @@ constexpr的好处：
         // 正确
         vector<int>::iterator vec_1_new(vec_1.begin(), index_vec_1);
         vector<int>::iterator vec_2_new(vec_2.begin(), vec_1_new.size());
-        
+2. /usr/lib64/libstdc++.so.6: error adding symbols: DSO missing from command line
+    在链接程序的时候链接-lstdc++(在target_link_libraries中增加 stdc++)         
 
 # 引用
 1. [C++之enum枚举量声明、定义、使用与枚举类详解](https://blog.csdn.net/Bruce_0712/article/details/54984371)

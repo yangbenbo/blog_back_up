@@ -69,7 +69,12 @@ SSH之所以能够保证安全，原因在于它采用了非对称加密技术(*
     ssh server@10.1.1.20 -p 22      //指定端口就可以了
 6. 测试是否连接
     ssh -T git@github.com            
+7. 远程拷贝文件
+    Secure copy
         
+        scp path/to/local_file remote_host:path/to/remote_file  # 如果是文件夹 需要增加 -r
+        scp remote_host:path/to/remote_file path/to/local_directory
+                    
     
 
 # 问题
