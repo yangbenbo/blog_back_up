@@ -150,7 +150,70 @@ QImage与QPixmap之间的转换:
 2. 使用直接连接方式`Qt::DrectConnection`,这种方式在需要把耗时槽函数放在子线程不适用(队列连接)
         
         connect(&subThread,SIGNAL(ui.pushButton, &QPushButton::clicked, robotarm, &robotArm::InitPos, Qt::DrectConnection);
+        
+## QSharedMemory实现进程间通信
+分享端的逻辑：
+
+1.创建一个QSharedMemory，并设置一个key值；
+
+2.查看这个内存是不是被使用，如果被使用就断开；
+
+3.调用create进行创建；(即使报已经存在也没关系,连接上照样使用)
+
+4.使用memcpy把要写入的数据放入QSharedMemory中（内部一般会使用互斥锁技术，锁住资源）
+
+ 
+
+读取端逻辑：
+
+1.创建一个QSharedMemory，把key值设置为分享端相同的key值；
+
+2.使用attach连接上这个QSharedMemory；(**先调用isAttached()判断是否需要attach，如果已经attach则再调用attach会返回false**)
+
+3.以读取字节的方式读取QSharedMemory中的数据（内部一般会使用互斥锁技术，锁住资源）；
+
+4.使用detach端口对这个QSharedMemory的连接。        
+
+**注意：分享端create后会自动attach上,不用调用detach,否则共享内存直接释放掉了.
+接收端每次attach,detach.需要保证始终有一个进程attach在sharedmemory上,通常是分享的一端**
+
+分享端:
+    
+    m_shared_memory = new QSharedMemory("shared", this);
+    if(m_shared_memory->isAttached()){
+        if(!m_shared_memory->detach()){
+            qDebug() << "shared memory detach failed";
+            return;
+        }
+    }
+    
+    if(!m_shared_memory->create(1)){
+        qDebug()<<m_shared_memory->errorString()<<" created failed!";
+        return;
+    }
+    
+    m_shared_memory->lock();
+    char *to = static_cast<char*>(m_shared_memory->data());
+    char msg = 'L';
+    memcpy(to, &msg, 1);
+    m_shared_memory->unlock();
+数据接受端:
+    
+    m_shared_memory = new QSharedMemory("shared", this);
+    if(!m_shared_memory->isAttached()){
+        if(!m_shared_memory->attach()){
+            qDebug() << "attach shared memory failed";
+            return;
+        }
+    }
+    m_shared_memory->lock();
+    char *to = static_cast<char*>(m_shared_memory->data());
+    char msg = 'L';
+    memcpy(to, &msg, 1);
+    m_shared_memory->unlock();
+    m_shared_memory->detach();
 
 ## 引用
-1. [Qt信号与槽传递自定义数据类型——两种解决方法](https://www.cnblogs.com/tid-think/p/9300457.html)                 
+1. [Qt信号与槽传递自定义数据类型——两种解决方法](https://www.cnblogs.com/tid-think/p/9300457.html)
+2. [Qt工作笔记-进程间的通信（通过QSharedMemory）](https://it1995.blog.csdn.net/article/details/81738155?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-5.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-5.control)                 
                          

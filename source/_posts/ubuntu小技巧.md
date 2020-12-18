@@ -110,6 +110,11 @@ deb
 4. 数据同步写入磁盘 sync
 虽然目前的shutdown reboot halt在关机前执行了sync，但是多执行几次确保
 
+# root权限与环境配置
+有时候需要以root运行程序,但是切换为root之后环境变量就变了,可以直接source一下本地用户的.bashrc以及项目的setup.bash
+    
+    sudo su     # 切换为root
+    source /home/yang/.bashrc
         
 # 高效工具
 1. **tldr** **cheat**
@@ -297,8 +302,7 @@ Redhat Linux  -> RPM包    ubunut -> Deb包
         /opt 给第三方协力软件放置的目录.比如chrome就在这里.不确认安装目录可以查找
             
             sudo find / -name '*platforminputcontexts*'   
-    - 重启qtcreator            
-                           
+    - 重启qtcreator                                       
 	
 # 引用
 1. [linux下查看软件安装路径](https://blog.csdn.net/liufuchun111/article/details/80402109)
