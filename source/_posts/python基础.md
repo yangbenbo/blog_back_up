@@ -164,6 +164,25 @@ tags:
 
                 pointCloud[np.int(h/stepY),np.int(w/stepX),:] = position / position[3]          
 
+## python代码中查看当前编译器版本
+        
+    import sys
+    print(sys.version)  # python2      
+
+## 脚本中指定编译器
+相当于写死了python3路径;
+
+    #!/usr/bin/python3
+去环境设置寻找python3目录,推荐这种写法
+    
+    #!/usr/bin/env python3      
+
+## 遇到的问题
+1. ImportError: cannot import name 'PackageFinder'
+
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py
+    
+
 ## 引用
 
 1. [在virtualenv中设置：`pip install -e .` vs `python setup.py install`](https://www.jb51.cc/python/241778.html)

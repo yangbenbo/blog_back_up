@@ -309,6 +309,9 @@ ${CMAKE_INSTALL_PREFIX}在ubuntu系统上默认是/usr/local
 ## 生成自己的package供别人调用
 待补充
 
+## 安装升级cmake
+    pip install cmake --upgrade
+
 # 引用
 1. [catkin CMakeLists.txt](http://wiki.ros.org/catkin/CMakeLists.txt#Finding_Dependent_CMake_Packages)
 2. [cmake-api](https://gearyyoung.gitbooks.io/cmake-api/content/)
@@ -318,6 +321,7 @@ ${CMAKE_INSTALL_PREFIX}在ubuntu系统上默认是/usr/local
 6. [cmake教程4(find_package使用)](https://blog.csdn.net/haluoluo211/article/details/80559341?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf)
 7. [GCC 警告选项 -Werror](https://blog.csdn.net/cui918/article/details/53187643)
 8. [Package format 2](https://docs.ros.org/en/api/catkin/html/howto/format2/index.html)
+9. [How to reinstall the latest cmake version?](https://stackoverflow.com/questions/49859457/how-to-reinstall-the-latest-cmake-version)
  
     
   

@@ -49,7 +49,16 @@ When a ROS node advertises a topic, it provides a hostname:port combination (a U
     export ROS_HOSTNAME=localhost
     export ROS_MASTER_URI=http://master:11311
     
-        
-        
+## rosrun rqt_tui rqt_gui 报错 segfaults
+问题描述:
+可以使用`rqt`打开,但是无法使用`rosru rqt_gui rqt_gui`打开,导致无法使用easy-hand-eye标定包
+
+通过查阅[rqt segfaults on kinetic #114](https://github.com/ros-visualization/rqt/issues/114)
+[rqt segmentation fault following tutorials](https://answers.ros.org/question/253655/rqt-segmentation-fault-following-tutorials/)
+得知问题主要是PyQt version的原因,所以试过了链接中的方法,都不太行,最后是卸载了qt5*,然后重新安装rqt_gui,发现只要安装rqt之后就无法通过`rosrun`的方式打开`
+    
+    sudo apt remove qt5*
+    sudo apt install ros-kinetic-rqt-gui
+    
 ## 引用
 1. [ROSNetworkSetup](http://wiki.ros.org/ROS/NetworkSetup)             

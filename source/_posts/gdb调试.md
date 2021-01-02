@@ -48,6 +48,9 @@ gcc(GNU Compiler Collection)
     set var i=1 #临时设置i=1
 ## 查看堆栈
     bt  #程序调用函数，函数的地址、参数、函数内局部变量都会压入
+## gdb 调试python程序
+    gdb python
+    run xxx.py    
     
 # ROS中使用
 launch文件
