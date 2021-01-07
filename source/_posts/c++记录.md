@@ -251,7 +251,12 @@ stringstream istringstream   ostringstream
     
     // 设置输出精度,cout默认是6位有效数字
     cout.precision(12); //设置为12位有效数字
-    printf("%.12f",val);  //小数点后12位有效数字  
+    printf("%.12f",val);  //小数点后12位有效数字
+
+另一种数字转字符串可参考[【C++】int转换为string的两种方法（to_string、字符串流）](https://blog.csdn.net/chavo0/article/details/51038397)
+这是c++11新增的内容
+    
+    std::to_string(int val)          
     
 ## 异常处理
 1. 抛出异常
