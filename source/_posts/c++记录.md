@@ -256,7 +256,11 @@ stringstream istringstream   ostringstream
 另一种数字转字符串可参考[【C++】int转换为string的两种方法（to_string、字符串流）](https://blog.csdn.net/chavo0/article/details/51038397)
 这是c++11新增的内容
     
-    std::to_string(int val)          
+    std::to_string(int val)   
+
+字符串转数字
+
+    std::stoi(std::string str);  // c++ 11 标准           
     
 ## 异常处理
 1. 抛出异常

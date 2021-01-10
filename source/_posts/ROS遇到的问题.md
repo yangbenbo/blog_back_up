@@ -59,6 +59,15 @@ When a ROS node advertises a topic, it provides a hostname:port combination (a U
     
     sudo apt remove qt5*
     sudo apt install ros-kinetic-rqt-gui
-    
+
+## "Failed to fetch current robot state" when running getCurrentPose #1187
+描述:使用moveit的时候出现无法获取机械臂当前状态信息k
+
+解决方案:
+
+    // 异步处理回调函数,处理更新
+    ros::AsyncSpinner spinner(1); 
+    spinner.start();
+
 ## 引用
 1. [ROSNetworkSetup](http://wiki.ros.org/ROS/NetworkSetup)             
