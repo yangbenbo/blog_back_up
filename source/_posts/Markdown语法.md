@@ -9,7 +9,7 @@ tags:
 mathjax: true
 ---
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=3 orderedList=false} -->
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=3 orderedList=false} -->
 
 <!-- code_chunk_output -->
 
@@ -25,16 +25,16 @@ mathjax: true
   - [代码](#代码)
   - [图片](#图片)
   - [数学公式](#数学公式)
-  - [其它](#其它)
-    - [自动链接](#自动链接)
-    - [反斜杠](#反斜杠)
-  - [引用](#引用)
+- [其它](#其它)
+  - [自动链接](#自动链接)
+  - [反斜杠](#反斜杠)
+- [引用](#引用)
 
 <!-- /code_chunk_output -->
 
-# 区块元素
+## 区块元素
 
-## 标题
+### 标题
 Markdown常用语法 =（最高级标题），-（第二阶标题）
 
 	最高级标题
@@ -47,7 +47,7 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 	# 最高标题
 	## 子标题
 
-## 区块引用
+### 区块引用
 
 先断好行，< 放在句首  一般标识符和后面内容之间需要**空格**
 
@@ -57,7 +57,7 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 	
 
 
-## 列表
+### 列表
 
 无序列表使用 * + -，有序列表 数字 + .
 
@@ -69,7 +69,7 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 
 	<1986\. What a great season.
 	
-## 代码区块
+### 代码区块
 
 缩进4个空格或者1个制表符，显示成原来的样子
 
@@ -77,7 +77,7 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
     	这是一个代码区块。
 	
 	
-## 分割线
+### 分割线
 
 三个以上的* 、 - 、底线 建立分割线，行内没有其它东西，中间可以有空格
 
@@ -86,9 +86,9 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 	——————
 	
 
-# 区段元素
+## 区段元素
 
-## 链接
+### 链接
 
 
 	This is [an example](http://example.com/ "Title") inline link.
@@ -108,7 +108,7 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 	[Google]: http://google.com/
 	
 	
-## 强调
+### 强调
 使用 * 和 _	包围，**如果强调两边都有空格，就会被当成普通的符号**
 	
 	**强调文字**
@@ -116,7 +116,7 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 	_strong_
 	
 
-## 代码
+### 代码
 标记一小段，用  `
 
 	Use the `printf()` function.
@@ -126,13 +126,13 @@ Markdown常用语法 =（最高级标题），-（第二阶标题）
 	``There is a literal backtick ` here.``
 	
 
-## 图片
+### 图片
 	![Alt text](/path/to/img.jpg)
 
 	![Alt text](/path/to/img.jpg "Optional title")
 	
 ---
-## 数学公式
+### 数学公式
 基于Mathjax编写LaTex数学公式,MathJax是一个跨浏览器的JavaScript库，它使用MathML、LATEX和ASCIIMathML标记在Web浏览器中显示数学符号。
 
 1. 标记公式
