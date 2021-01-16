@@ -2,7 +2,7 @@
 title: mathtype常用配置
 date: 2019-11-30 21:39:27
 categories:
-- software
+- Software
 tags:
 - equation
 ---

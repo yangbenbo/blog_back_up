@@ -2,7 +2,7 @@
 title: python 装饰器
 date: 2020-11-10 14:00:30
 categories:
-- program
+- Program
 tags:
 - python
 ---

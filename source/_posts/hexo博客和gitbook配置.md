@@ -2,7 +2,7 @@
 title: hexo博客和gitbook配置
 date: 2019-10-06 08:36:02
 categories:
-- blog
+- Blog
 tags:
 - hexo
 - blog

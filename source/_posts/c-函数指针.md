@@ -2,7 +2,7 @@
 title: c++函数指针
 date: 2019-11-16 16:51:52
 categories:
-- program
+- Program
 tags:
 - c++
 ---

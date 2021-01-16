@@ -2,7 +2,7 @@
 title: matlab中常见问题
 date: 2019-10-24 19:46:53
 categories:
-- software
+- Software
 tags:
 - matlab
 ---

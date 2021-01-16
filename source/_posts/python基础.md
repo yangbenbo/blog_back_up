@@ -2,7 +2,7 @@
 title: python基础
 date: 2020-05-22 16:52:49
 categories:
-- program
+- Program
 tags:
 - python
 ---

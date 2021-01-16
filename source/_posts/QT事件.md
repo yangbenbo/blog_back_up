@@ -2,7 +2,7 @@
 title: QT事件
 date: 2020-02-01 21:46:32
 categories:
-- program
+- Program
 tags:
 - qt
 ---

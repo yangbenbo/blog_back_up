@@ -2,7 +2,7 @@
 title: c++中argc argv理解
 date: 2020-01-22 17:27:07
 categories:
-- program
+- Program
 tags:
 - c++
 - c

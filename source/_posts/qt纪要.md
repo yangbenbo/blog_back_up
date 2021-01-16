@@ -2,7 +2,7 @@
 title: qt记录
 date: 2019-11-22 22:23:21
 categories:
-- program
+- Program
 tags:
 - qt
 ---

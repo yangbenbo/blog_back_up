@@ -2,7 +2,7 @@
 title: 'c++ #pragma once'
 date: 2020-02-05 09:59:27
 categories:
-- program
+- Program
 tags:
 - c++
 ---

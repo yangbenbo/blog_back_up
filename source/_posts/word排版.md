@@ -2,7 +2,7 @@
 title: word排版
 date: 2019-12-14 21:39:40
 categories:
-- software
+- Software
 tags:
 - matlab绘图
 

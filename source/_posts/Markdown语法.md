@@ -2,7 +2,7 @@
 title: Markdown语法
 date: 2019-07-14 16:44:31
 categories:
-- blog
+- Blog
 tags:
 - program
 - blog

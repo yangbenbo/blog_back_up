@@ -2,7 +2,7 @@
 title: pyhton 代码规范
 date: 2020-12-12 17:01:28
 categories:
-- program
+- Program
 tags:
 - 代码规范
 ---

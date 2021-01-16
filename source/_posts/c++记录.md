@@ -2,7 +2,7 @@
 title: c++记录
 date: 2019-10-06 16:35:06
 categories:
-- program
+- Program
 
 tags:
 - c++
