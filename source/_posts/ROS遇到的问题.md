@@ -69,5 +69,26 @@ When a ROS node advertises a topic, it provides a hostname:port combination (a U
     ros::AsyncSpinner spinner(1); 
     spinner.start();
 
+## 多个工作空间`activate`,即`Sourcing from multiple workspaces`
+描述,想要多个ROS空间的环境变量同时工作
+- 如果使用clion编译则可以不用管,直接source cmake-build-debug/devel/setup.bash
+- 使用`catkin`编译则需要注意空间[Sourcing from multiple workspaces](https://answers.ros.org/question/205976/sourcing-from-multiple-workspaces/)
+`catkin_make` 第一次运行会生成`devel`文件夹,并创建`setup.bash`,这个文件会覆盖所有其他已经被`source`的空间(除了ROS本身的安装空间),如果需要多个空间同时`active`
+**注意只需要在第一次编译的时候移除文件夹devel,然后重编译.之后改动就正常编译就行**
+
+        # 需要新加空间的地方
+		catkin_make
+		rm -rf devel/
+		catkin_make
+		source devel/setup.bash
+
+## 实时性
+可以调整CPU频率，intel的cpu默认省电模式，频率较低，可能会导致延时大
+使用cpufreq，参考[franka操作](https://frankaemika.github.io/docs/troubleshooting.html)
+
+##　Gazebo第一次加载太慢
+把[模型](https://bitbucket.org/osrf/gazebo_models/downloads/  )放在指定目录下 `~/.gazebo/models` 下保证模型顺利加载
+
+
 ## 引用
 1. [ROSNetworkSetup](http://wiki.ros.org/ROS/NetworkSetup)             

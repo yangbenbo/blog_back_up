@@ -73,6 +73,7 @@ npm 常用命令
 ---
 
 ## hexo博客搭建
+[搭建参考](https://zhuanlan.zhihu.com/p/26625249)
 
     sudo apt install nodejs
     sudo apt install npm
@@ -81,6 +82,8 @@ npm 常用命令
     sudo n stable
     
     sudo npm install hexo-cli
+
+常用命令参考[官网](https://hexo.io/docs/commands)
 
 ## hexo博客使用
 

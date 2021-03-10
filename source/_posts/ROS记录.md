@@ -7,6 +7,24 @@ tags:
 - NodeHandle
 ---
 
+## 基本操作
+1. urdf
+通过SolidWorks插件导出的URDF文件，它默认使用的碰撞检测模型和可视化模型是一样的。为了提高运动规划的执行速度，你可以使用MeshLab来简化模型（.stl或.dae零件）的点和面。
+
+        check_urdf test.urdf //检查模型
+        urdf_to_graphiz test.urdf //创建pdf文件,说明关节信息,方便查看
+        roslaunch urdf_tutorial display.launch model:=<RELATIVE_PATH_TO_URDF> // rviz中查看urdf模型
+2. 查看tf
+
+        rosrun tf view_frames
+        evince frames.pdf
+        rosrun tf tf_echo [reference_frame] [target_frame]
+        rosrun rviz rviz -d `rospack find turtle_tf`/rviz/turtle_rviz.rviz
+3. 环境变量
+
+        env |grep ROS
+
+
 ## 私有名称
 NodeHandle创建时有自己的命名空间,访问私有名称
 
@@ -32,7 +50,8 @@ NodeHandle创建时有自己的命名空间,访问私有名称
     n.param<std::string>("my_param", s, "default_value");
 如果参数服务器存在/a/b的参数，你的NodeHandle在/a/c工作空间，searchParam()搜索b会得到/a/b. 
 如果/a/c/b参数增加，搜索就会得到/a/c/b参数。
-# 设置消息级别
+
+## 设置消息级别
 1. 源代码加入
         
         #define ROSCONSOLE_MIN_SEVERITY ROSSONSOLE_SEVERITY_ERROR   //error等级
@@ -55,19 +74,19 @@ NodeHandle创建时有自己的命名空间,访问私有名称
 
         ROS_INFO_STREAM_ONCE("my message");
         ROS_INFO_STREAM_THROTTLE(2, "my message");  //每隔两秒输出
-7. rqt_console  rqt_logger_level　运行时修改级别  
-# 出现异常情况 roswtf
-检测功能包所有原件潜在问题    
+7. rqt_console  rqt_logger_level　运行时修改级别
+
+8. 检测功能包所有原件潜在问题，出现异常情况 roswtf
     
-    roscd package_name
-    roswtf    
-8. 消息记录
+        roscd package_name
+        roswtf    
+9. 消息记录
     
         rosbag record -a   #记录所有
         <node pkg="rosbag" type="record" name="bag_record" args="/topic_name" />  #消息记录包默认在~/.ros路劲下　除非使用-o(前缀) -O(文件命名)
         rosbag play xxx.bag
 
-# 节点生命周期
+## 节点生命周期
 - 当第一个ros::NodeHandle创建时候，会调用ros::start()
 - 最后一个ros::NodeHandle销毁时，会调用 ros::shutdown() (这将关闭所有打开的订阅、发布、服务调用和服务服务器)
 
@@ -103,7 +122,18 @@ NodeHandle创建时有自己的命名空间,访问私有名称
     Didn't received robot state (joint angles) with recent timestamp within 1 seconds.
     Check clock synchronization if your are running ROS across multiple machines!       
         
-简单理解：**remap就是把作用范围内的名称直接替换掉 用替换掉的名称对外开放 实现两个话题通信**        
+简单理解：**remap就是把作用范围内的名称直接替换掉 用替换掉的名称对外开放 实现两个话题通信** 
+
+所有ROS节点内的资源名称都可以在节点启动时进行重映射。
+命名重映射采用语法：`name:=new_name`
+
+例如将chatter重映射为/wg/chatter，在节点启动时可以使用如下方式重映射命名：
+
+        rosrun rospy_tutorials talker chatter:=/wg/chatter
+
+ROS的命名解析是在命名重映射之前发生的。所以当我们需要“foo：=bar”时，会将节点内的所有foo命名映射为bar，而如果我们重映射“/foo：=bar”时，ROS只会将全局解析为/foo的名称重映射为bar。
+可以通过下表总结命名重映射与命名解析之间的关系。
+![命名重映射](name_remap.png)
 
     
 ## Failed to fetch current robot state
@@ -120,14 +150,3 @@ NodeHandle创建时有自己的命名空间,访问私有名称
 
 # 引用
 1. [ROS中Remap标签详解,举例说明其两种用法](https://blog.csdn.net/xingdou520/article/details/85686752)
-
-
-        
-
-               
-                              
-
-
-                 
-    
-    

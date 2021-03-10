@@ -25,7 +25,7 @@ gcc(GNU Compiler Collection)
 很多命令可以缩写为一个字母   
 ## 启动
     gcc -g summary.c
-    gdb a.out           #二进制文件作为gdb参数就可以了
+    gdb a.out    #二进制文件作为gdb参数就可以了,可以是最后生成的可执行文件
 ## 查看源代码
     l       #list
     search  #reverse-search

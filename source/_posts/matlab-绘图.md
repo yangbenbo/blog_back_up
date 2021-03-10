@@ -7,16 +7,38 @@ tags:
 - matlab
 
 ---
-# 常用绘图命令
-## 命令查看
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=3 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [常用绘图命令](#常用绘图命令)
+  - [命令查看](#命令查看)
+  - [图形窗口](#图形窗口)
+  - [坐标轴](#坐标轴)
+  - [文字标示](#文字标示)
+  - [栅格](#栅格)
+  - [图形覆盖/保持](#图形覆盖保持)
+  - [视角方向](#视角方向)
+  - [例子](#例子)
+- [遇到的问题](#遇到的问题)
+- [参考](#参考)
+
+<!-- /code_chunk_output -->
+
+## 常用绘图命令
+
+### 命令查看
 查看所有画图相关命令
 
     help graph2d
     help graph3d
-## 图形窗口
+
+### 图形窗口
     figure(n)    % 打开窗口n
     subplot(m,n,p)   % m行n列窗口第p个
-## 坐标轴
+
+### 坐标轴
 - axis([xmin xmax ymin ymax])
 
 - axis equal 使x,y轴的单位长度相同
@@ -28,21 +50,25 @@ tags:
 - semilogx,semilogy 绘制以x/y轴为对数坐标，以10为底，y/x轴为线性坐标的半对数坐标图形
 
 - loglog 绘制全对数坐标图，即x,y轴全取对数   
-## 文字标示
+
+### 文字标示
 - text(x,y,‘字符串’) 在图形的指定坐标（x,y)处表示’字符串’中的内容
 - gtext('说明文字’）利用鼠标在图形的某一位置标示说明文字。执行完绘图命令后再执行gtext('说明文字‘）命令
 - title('字符串’）图形标题
 - xlabel('字符串‘),ylabel(‘字符串’),zlabel('字符串’)，设置x,y,z轴的坐标轴名称。如需输入特殊文字，用\开头
 - legend(‘字符串1’,‘字符串1’,‘字符串1’……）对图形上多条线按照绘图顺序进行说明 
-## 栅格
+
+### 栅格
 - grid 给图形加栅格
 - grid on 给坐标系加栅格
 - grid off 删除当前坐标系的栅格
 - grid minor  细化栅格
-## 图形覆盖/保持
+
+### 图形覆盖/保持
 - hold on 当前图形保持，且下条图形仍然绘制在该张图形上
 - hold off 新图覆盖旧图 
-## 视角方向
+
+### 视角方向
 
 - view(az,el)                   给三维空间图形设置观察点的方位角az与仰角el
 
@@ -60,7 +86,7 @@ tags:
 
 - T = view                      返回当前的4*4阶的转换矩阵T
 
-## 例子
+### 例子
 
 例子1
    
@@ -131,7 +157,18 @@ legend 放置两排 需要鼠标拖动调整位置
     	
     	xlabel('\fontname{宋体}力模长\fontname{Times New Roman}(N)','Position',[0.1,0.1]);
 
+## 遇到的问题
+1. 想要坐标轴上的数据按照`小数点两边每三位留一个空格, 如1 234.567 8`
+    
+    比如设置y轴数据为-5 000 和5 000
+    
+        set(gca, 'YTick',-5000:5000:8000, 'YTickLabel',{'-5 000','0','5 000'});
+    **如果使用其他操作可以参考matlab图像生成代码,然后根据生成的代码修改自己的绘图参数即可**
 
-# 参考
+    使用代码定义好图像的大小和字体之后通过matlab的图像编辑器进行操作,
+    Edit -> Axes Properties -> 在Property Editor - Axes 中选中Ticks进行编辑
+    -> 在Labels中需要的地方增加空格 -> 退回图像编辑主窗口 -> File -> Generate Code
+
+## 参考
 1. [Matlab常用绘图命令](https://blog.csdn.net/weixin_38452468/article/details/90171772)
 2. [MATLAB中的视角处理](https://blog.csdn.net/seamanj/article/details/35790359)     
