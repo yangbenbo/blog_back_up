@@ -65,6 +65,12 @@ git管理版本主要分三个地址进行层次提交
 		git remote add origin git@server-name:path/repo-name.git
 		git push -u origin master   # 第一次推送master分支的所有内容(如果分支不是master则需要指明)
 		git push origin master   # 可以直接使用git push
+		
+		# 也可以使用下面命令
+		#git push -u origin --all
+		#git push -u origin --tags
+		# 如果本体仓库已经存在 需要先rename
+		git remote rename origin old-origin
 
 ### 分支
 

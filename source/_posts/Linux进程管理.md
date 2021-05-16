@@ -5,15 +5,24 @@ categories:
 - Linux
 
 tags:
-
-
 ---
 
-# Linux进程
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=3 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [Linux进程](#linux进程)
+  - [进程管理常用命令](#进程管理常用命令)
+  - [遇到的问题](#遇到的问题)
+- [临时和周期任务安排](#临时和周期任务安排)
+
+<!-- /code_chunk_output -->
+
+## Linux进程
 Linux是一个多用户多任务的操作系统。init进程是所有进程的发起者和控制者，每个进程
 都有一个编号，PID(Process ID)，是在当前系统中的运行顺序，init进程在系统运行期间不会消亡或停止
 
-## 进程管理常用命令
+### 进程管理常用命令
 1. 查看进程状态
 
     ps aux      #静态查看系统中所有进程信息
@@ -32,8 +41,20 @@ Linux是一个多用户多任务的操作系统。init进程是所有进程的�
     kill -STOP 4385     #停止但不退出
     
     killall [-signal] [processname]  #终止所有名为processname的进程
-    
-# 临时和周期任务安排
+4. 查看后台进程
+    查看后台进程
+
+        gnome-system-monitor    
+    自启动
+
+        gnome-session-properties
+
+### 遇到的问题
+1. win10可以联网,ubuntu不能
+
+    关闭网络唤醒,在win10里面的电源计划,勾选快速启动
+
+## 临时和周期任务安排
 
 待补充    
         

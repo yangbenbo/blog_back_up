@@ -121,7 +121,7 @@ npm 常用命令
 ### 添加目录
 这是在visual studio code中使用的
 可以在想要添加目录的地方加入下面这句话,就能自动为文章增加目录,Awesome!
-还可以设置需要显示的目录级别
+还可以设置需要显示的目录级别,在文章开头可以通过 `ctrl+鼠标左键` 的方式跳转到对应内容
 
     <!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=3 orderedList=false} -->
     

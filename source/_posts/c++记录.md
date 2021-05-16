@@ -8,6 +8,45 @@ tags:
 - c++
 ---
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=3 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [g++编译](#g编译)
+  - [常用选项](#常用选项)
+- [enum 枚举类型](#enum-枚举类型)
+- [左值 右值](#左值-右值)
+- [变量初始化](#变量初始化)
+- [限定符](#限定符)
+- [存储类](#存储类)
+- [运算符优先级](#运算符优先级)
+- [lambda 函数与表达式](#lambda-函数与表达式)
+  - [qt中的lambda表达式](#qt中的lambda表达式)
+- [指向指针的指针](#指向指针的指针)
+- [虚继承](#虚继承)
+- [运算符重载](#运算符重载)
+- [虚函数](#虚函数)
+- [c++ STL](#c-stl)
+- [文件和流](#文件和流)
+  - [文件输入输出流](#文件输入输出流)
+  - [字符串输入输出流](#字符串输入输出流)
+- [异常处理](#异常处理)
+  - [异常的使用](#异常的使用)
+  - [exit函数](#exit函数)
+- [类型转换](#类型转换)
+- [继承和组合](#继承和组合)
+- [随机数发生器](#随机数发生器)
+- [**待续...**](#待续)
+- [动态内存](#动态内存)
+- [命名空间](#命名空间)
+- [模板](#模板)
+- [预处理器](#预处理器)
+- [信号处理](#信号处理)
+- [多线程](#多线程)
+- [常见bug](#常见bug)
+
+<!-- /code_chunk_output -->
+
 ## g++编译
     g++ -g -Wall -std=c++11 main.cpp
     
@@ -378,7 +417,10 @@ stringstream istringstream   ostringstream
 ## 预处理器
 ## 信号处理
 ## 多线程
-                    
+
+## 常见bug
+1. 有返回值的函数一定记得最后有个`return`返回需要的值,**建议有返回值函数先写return语句占位置**
+            
 
 # const constexpr
 - const：大致意思是说我承诺不改变这个值，主要用于说明接口，这样变量传递给函数就不担心变量会在函数内被修改了,编译器负责确认并执行const的承诺。
@@ -410,6 +452,28 @@ constexpr的好处：
         vector<int>::iterator vec_2_new(vec_2.begin(), vec_1_new.size());
 2. /usr/lib64/libstdc++.so.6: error adding symbols: DSO missing from command line
     在链接程序的时候链接-lstdc++(在target_link_libraries中增加 stdc++)         
+
+3. 对象初始化使用{}
+    参考[问题Initializing std::tuple from initializer list](https://stackoverflow.com/questions/3413050/initializing-stdtuple-from-initializer-list)
+
+    主要涉及到
+    - **initializer_list<T>** is a homogeneous collection (all members must be of the same type, so not relevant for std::tuple)
+    
+    - **Uniform initialization** is where curly brackets are used in order to construct all kinds of objects; arrays, PODs and classes with constructors. Which also has the benefit of solving the most vexing parse)
+
+            struct A { 
+            explicit A(int) {}
+            };
+
+            A a0 = 3;
+            // Error: conversion from 'int' to non-scalar type 'A' requested
+
+            A a1 = {3}; 
+            // Error: converting to 'const A' from initializer list would use 
+            // explicit constructor 'A::A(int)'
+
+            A a2(3); // OK C++98 style
+            A a3{3}; // OK C++0x Uniform initialization
 
 # 引用
 1. [C++之enum枚举量声明、定义、使用与枚举类详解](https://blog.csdn.net/Bruce_0712/article/details/54984371)

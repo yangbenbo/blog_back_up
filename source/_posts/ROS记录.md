@@ -8,6 +8,7 @@ tags:
 ---
 
 ## 基本操作
+**ros需要等待初始化完成，否则直接在话题上发布可能导致接受不到**
 1. urdf
 通过SolidWorks插件导出的URDF文件，它默认使用的碰撞检测模型和可视化模型是一样的。为了提高运动规划的执行速度，你可以使用MeshLab来简化模型（.stl或.dae零件）的点和面。
 
@@ -23,7 +24,13 @@ tags:
 3. 环境变量
 
         env |grep ROS
+4. 参数服务器
+指定参数类型
 
+        std::string s;
+        n.param<std::string>("my_param", s, "default_value");  //有时编译器需要字符串类型的提示
+5. solidworks导出urdf
+通过SolidWorks插件导出的URDF文件，它默认使用的碰撞检测模型和可视化模型是一样的。为了提高运动规划的执行速度，你可以使用MeshLab来简化模型（.stl或.dae零件）的点和面。
 
 ## 私有名称
 NodeHandle创建时有自己的命名空间,访问私有名称
