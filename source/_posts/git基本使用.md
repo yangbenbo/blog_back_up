@@ -72,6 +72,22 @@ git管理版本主要分三个地址进行层次提交
 		# 如果本体仓库已经存在 需要先rename
 		git remote rename origin old-origin
 
+
+建立本地和远程分支**映射关系**后,使用`git push`或者`git pull` 时就不必每次都要指定从远程的哪个分支拉取合并和推送到远程的哪个分支了。
+		
+		# 从远程仓库拉取所有分支
+		git branch		# 查看所有本地分支
+		git branch -r	# 查看所有远程分支
+		git branch -a	# 查看所有分支
+		# 本地新建分支x,并自动切换到x,建立了本地和远程分支的映射关系
+		git checkout -b 本地分支名x origin/远程分支名x
+		# 第二种方式 不会和远程分支建立映射关系,也需要手动checkout到x
+		git fetch origin 远程分支名x:本地分支名x
+		# 查看映射关系
+		git branch -vv
+
+
+
 ### 分支
 
 		git branch   # 查看分支
@@ -223,3 +239,4 @@ Microsoft开发记事本的团队保存UTF-8编码的文件:在每个文件开�
 3. [Python之pyc文件作用及生成方法](https://blog.csdn.net/zong596568821xp/article/details/87341933)
 4. [git commit -m与-am的区别](https://www.cnblogs.com/smile-fanyin/p/10827438.html)
 5. [Git使用小技巧之多个远程仓库](https://www.cnblogs.com/endless-code/p/11173886.html)
+6. [git拉取远程分支并创建本地分支](https://blog.csdn.net/tterminator/article/details/78108550)
