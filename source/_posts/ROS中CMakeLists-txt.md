@@ -59,7 +59,7 @@ CMake构建系统通过ROS包中的CMakeList.txt来构建软件包。
 查看包
     
         cmake --help-module-list # 双击Tab会有提示   
-        cmake --help-module Find FindBZip2     #查看Bzip2的帮助
+        cmake --help-module FindBZip2     #查看Bzip2的帮助
         
         # 输出如下,可知道对应头文件和源文件变量名
         FindBZip2
