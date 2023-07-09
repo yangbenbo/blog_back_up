@@ -1,3 +1,29 @@
 {
-    "python.pythonPath": "/home/yang/anaconda3/bin/python"
+    "pasteImage.path": "${currentFileDir}/images/",
+    "pasteImage.basePath": "${currentFileDir}/images/",
+    "workbench.settings.editor": "json",
+    // 自动保存
+    "files.autoSave": "afterDelay",
+    // 字号
+    "editor.fontSize": 17,
+    "editor.fontFamily": "JetBrains Mono NL, '等线'",
+    // code snippet
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    // 默认 lf 结尾; 
+    // linux / mac / win 上的文件结尾符不一样; Git 对于不同的结尾符，在不同平台上可能会引发不一致问题
+    "files.eol": "\n",
+    // vscode update tips
+    "update.mode": "none",
+    // delete confirm
+    "explorer.confirmDelete": false,
+    ///////////////////////////////////// 插件 ////////////////////////////////////////////
+    // Internal terminal 插件 Code Runner
+    "code-runner.runInTerminal": true,
+    "code-runner.fileDirectoryAsCwd": true,
+    // extension update
+    "extensions.autoUpdate": "onlyEnabledExtensions",
+    "editor.formatOnSave": true,
+    //  在按下 Tab 键时进行 Tab 补全，将插入最佳匹配建议
+    "editor.tabCompletion": "on",
 }

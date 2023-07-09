@@ -73,17 +73,22 @@ npm 常用命令
 ---
 
 ## hexo博客搭建
+常用命令参考[hexo官网](https://hexo.io/docs/commands)
+- ubuntu 搭建
 [搭建参考](https://zhuanlan.zhihu.com/p/26625249)
 
-    sudo apt install nodejs
-    sudo apt install npm
-    
-    sudo npm install n -g
-    sudo n stable
-    
-    sudo npm install hexo-cli
+        sudo apt install nodejs
+        sudo apt install npm
+        
+        sudo npm install n -g
+        sudo n stable
+        
+        sudo npm install hexo-cli
 
-常用命令参考[官网](https://hexo.io/docs/commands)
+- windows 搭建
+    参考[windows下Hexo博客搭建过程](https://blog.csdn.net/qq_31880107/article/details/86688467)
+
+    由于之前已经在ubuntu配置过github page，所以这里只需要下载安装[NodeJs](https://nodejs.org/zh-cn)
 
 ## hexo博客使用
 
@@ -137,7 +142,9 @@ npm 常用命令
         
         sudo n 8.9.4            #安装指定版本
         node -v
-       
+2. 报错：The “mode“ argument must be integer. Received an instance of Object
+    主要原因是node版本过高，下载之前版本[node](https://nodejs.org/en/download/releases)
+
 ## 引用
 1. [GitBook 使用入门](https://blog.csdn.net/wirelessqa/article/details/72616471)
 2. [node升级的正确方法](https://blog.csdn.net/tlbaba/article/details/79412433)

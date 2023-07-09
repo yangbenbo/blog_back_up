@@ -24,7 +24,7 @@ link:
     csdn:
     oschina: https://my.oschina.net/
     juejin:
-    email: yangbenbo_whu@qq.com
+    email: yangbenbo@whu.edu.cn
 #    qq: 2519130844
 #    kugou: https://www.kugou.com/
 #    neteasemusic: https://music.163.com/#/user/home?id=88151013
@@ -70,7 +70,7 @@ menu:
       type: 3  # 跳转类型 3：打开新的tab页
 
 # 文末声明
-article_txt: 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 yangbenbo_whu@qq.com
+article_txt: 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至 yangbenbo@whu.edu.cn
 
 bottom_text: ©2016-2019 yang
 # 自定义页面最下方的站点版权信息

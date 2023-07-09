@@ -1,6 +1,0 @@
-{
-    "pasteImage.path": "${projectRoot}/source/_posts/${currentFileNameWithoutExt}",
-    "pasteImage.basePath": "${projectRoot}/source/_posts",
-    "pasteImage.forceUnixStyleSeparator": true,
-    "pasteImage.prefix": "/"
-}
