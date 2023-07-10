@@ -5,8 +5,8 @@
     // 自动保存
     "files.autoSave": "afterDelay",
     // 字号
-    "editor.fontSize": 17,
-    "editor.fontFamily": "JetBrains Mono NL, '等线'",
+    "editor.fontSize": 16,
+    "editor.fontFamily": "JetBrains Mono, '等线'",
     // code snippet
     "editor.suggestSelection": "recentlyUsedByPrefix",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
