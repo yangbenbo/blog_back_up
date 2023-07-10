@@ -90,6 +90,16 @@ npm 常用命令
 
     由于之前已经在ubuntu配置过github page，所以这里只需要下载安装[NodeJs](https://nodejs.org/zh-cn)
 
+        // 使用windows powershell可以安装
+        npm install -g hexo
+
+        // 使用git的终端进行操作
+        hexo init blog  # 初始化, 如果已经有则不需要
+        hexo clean
+        hexo g
+        hexo s
+        hexo d
+
 ## hexo博客使用
 
 ### 博客撰写工具
