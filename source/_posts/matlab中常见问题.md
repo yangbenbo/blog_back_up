@@ -19,5 +19,15 @@ tags:
       
         rat(0.3)   
 2. 关于reshape
-    reshape是按照列来重新排列 不要想当然 之前一个sigma_cube数据(1667x3 其中每个3x3是一个sigma)就是排错了         
+    reshape是按照列来重新排列 不要想当然 之前一个sigma_cube数据(1667x3 其中每个3x3是一个sigma)就是排错了   
+
+3. 多个数组生成全组合
+    `fullfact`, 有时候为了编译不相关变量和所有组合, 可以使用这个函数
+
+        % 得到3组关节角度的全排列, 与使用循环是一致的
+        th1 = 0 : 1 : 10;
+        th2 = 10 : 1 : 20;
+        th3 = 20 : 1 : 30;
+        index = fullfact([length(th1), length(th2), length(th3)]);
+        spaceJoint = [th1(index(:, 1))', th2(index(:, 2))', th3(index(:, 3))'];
         

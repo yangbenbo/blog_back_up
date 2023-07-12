@@ -177,6 +177,94 @@ tags:
     
     #!/usr/bin/env python3      
 
+## 正则表达式
+使用正则表达式可以非常方便从文本中获取到需要的值, 相对matlab速度更快
+[正则表达式 - 教程](https://www.runoob.com/regexp/regexp-tutorial.html), 验证正则表达式是否正确参考[正则表达式在线测试|菜鸟工具](https://c.runoob.com/front-end/854/)
+
+- 字符匹配
+普通字符：普通字符按照字面意义进行匹配，例如匹配字母 "a" 将匹配到文本中的 "a" 字符。
+元字符：元字符具有特殊的含义，例如 \d 匹配任意数字字符，\w 匹配任意字母数字字符，. 匹配任意字符（除了换行符）等。
+- 量词
+*：匹配前面的模式零次或多次。
++：匹配前面的模式一次或多次。
+?：匹配前面的模式零次或一次。
+{n}：匹配前面的模式恰好 n 次。
+{n,}：匹配前面的模式至少 n 次。
+{n,m}：匹配前面的模式至少 n 次且不超过 m 次。
+- 字符类
+[ ]：匹配括号内的任意一个字符。例如，[abc] 匹配字符 "a"、"b" 或 "c"。
+[^ ]：匹配除了括号内的字符以外的任意一个字符。例如，[^abc] 匹配除了字符 "a"、"b" 或 "c" 以外的任意字符。
+- 边界匹配
+^：匹配字符串的开头。
+$：匹配字符串的结尾。
+\b：匹配单词边界。
+\B：匹配非单词边界。
+- 分组和捕获
+( )：用于分组和捕获子表达式。
+(?: )：用于分组但不捕获子表达式。
+- 特殊字符
+\：转义字符，用于匹配特殊字符本身。
+.：匹配任意字符（除了换行符）。
+|：用于指定多个模式的选择。
+
+常用正则:
+- 数字匹配并分组`(-?\d+\.?\d*(?:e[+-]?\d+)?)`
+- 匹配所有`[\s\S]`, `\s`匹配所有空白符, 包括换行, `\S`非空白符，不包括换行
+- 匹配一个数字字符`\d`, 等价于 [0-9]
+        
+        # 匹配带字符`UT: a0: 数字`
+        import re
+        a0Reg = re.compile(r"[\s\S]+UT: a0: (-?\d+\.?\d*(?:e[+-]?\d+)?)")
+        line = "fhdsa UT: a0: 1.23"
+        m = a0Reg.match(line)
+        if m:
+                print(float(m.group(i + 1))) # 索引0 对应整个字符串, 1开始为分组内部的内容
+
+python中可视化可以用`matplot`, 如果想要更好的绘图可以使用matlab, 这是只是用python提取数据, 存放在txt可以用`numpy`, 先创建list, 然后转换numpy格式
+
+    import numpy as np
+    
+    class GetData:
+    def __int__(self):
+        self.version = 1.0
+
+    @staticmethod
+    def get_joint(data_file, data_reg, num_jnt):
+        jnt_list = []
+        t = []
+        with open(data_file, "rt", encoding='utf-8') as fp:
+            for line in fp:
+                m = data_reg.match(line)
+                if m:
+                    datime = line[12:27]
+                    t_tmp = datetime.datetime.strptime(datime, "%H:%M:%S.%f")
+                    t.append(t_tmp)
+                    jnt = []
+                    for i in range(num_jnt):
+                        jnt.extend([float(m.group(i + 1))])
+                    jnt_list.append(jnt)
+        jnt_arr = np.asarray(jnt_list)
+        return t, jnt_arr
+
+    @staticmethod
+    def get_matrix(data_file, data_text, data_reg, num_row, num_col):
+        jnt_list = []
+        t = []
+        with open(data_file, "rt", encoding='utf-8') as fp:
+            for line in fp:
+                if data_text in line:
+                    next_line = fp.readline()
+                    m = data_reg.match(next_line)
+                    if m:
+                        datime = line[12:27]
+                        t_tmp = datetime.datetime.strptime(datime, "%H:%M:%S.%f")
+                        t.append(t_tmp)
+                        jnt = []
+                        for i in range(num_row * num_col):
+                            jnt.extend([float(m.group(i + 1))])
+                        jnt_list.append(jnt)
+        jnt_arr = np.asarray(jnt_list)
+        return t, jnt_arr
 ## 遇到的问题
 1. ImportError: cannot import name 'PackageFinder'
 
