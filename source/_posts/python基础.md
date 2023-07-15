@@ -222,29 +222,42 @@ $：匹配字符串的结尾。
 
 python中可视化可以用`matplot`, 如果想要更好的绘图可以使用matlab, 这是只是用python提取数据, 存放在txt可以用`numpy`, 先创建list, 然后转换numpy格式
 
-    import numpy as np
-    
     class GetData:
     def __int__(self):
         self.version = 1.0
 
     @staticmethod
     def get_joint(data_file, data_reg, num_jnt):
-        jnt_list = []
+        """Get several data from file with regular expression
+
+        Used for analyze data
+
+        Args:
+            data_file (str): The path of the file to read
+            data_reg (Pattern object): regular expression pattern
+            num_jnt (int): number of data
+
+        Returns:
+            t_arr: time in millisecode
+            jnt_arr: data array
+        """
+        data_list = []
         t = []
         with open(data_file, "rt", encoding='utf-8') as fp:
             for line in fp:
                 m = data_reg.match(line)
                 if m:
-                    datime = line[12:27]
-                    t_tmp = datetime.datetime.strptime(datime, "%H:%M:%S.%f")
-                    t.append(t_tmp)
-                    jnt = []
+                    datime = line[1:27]
+                    time_array = datetime.datetime.strptime(datime, "%Y-%m-%d %H:%M:%S.%f")
+                    time_stamp = time.mktime(time_array.timetuple()) + time_array.microsecond / 1e6
+                    t.append(time_stamp)
+                    data_line = []
                     for i in range(num_jnt):
-                        jnt.extend([float(m.group(i + 1))])
-                    jnt_list.append(jnt)
-        jnt_arr = np.asarray(jnt_list)
-        return t, jnt_arr
+                        data_line.extend([float(m.group(i + 1))])
+                    data_list.append(data_line)
+        data_arr = np.asarray(data_list)
+        t_arr = np.asarray(t)
+        return t_arr, data_arr
 
     @staticmethod
     def get_matrix(data_file, data_text, data_reg, num_row, num_col):
@@ -265,6 +278,31 @@ python中可视化可以用`matplot`, 如果想要更好的绘图可以使用mat
                         jnt_list.append(jnt)
         jnt_arr = np.asarray(jnt_list)
         return t, jnt_arr
+
+## 函数注释
+好的函数注释能够快速确认该如何使用, 特别时对于阅读老代码是非常有用的
+参考[Google 开源项目风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/python_style_rules/)
+- google推荐
+    ```
+    def func(path, field_storage, temporary):
+        '''基本描述
+
+        详细描述
+
+        Args:
+            path (str): The path of the file to wrap
+            field_storage (FileStorage): The :class:`FileStorage` instance to wrap
+            temporary (bool): Whether or not to delete the file when the File instance is destructed
+
+        Returns:
+            BufferedFileStorage: A buffered writable file descriptor
+        '''
+        pass
+
+    ```
+
+也可以通过库函数跳转到定义, 参考官方的注释方式
+
 ## 遇到的问题
 1. ImportError: cannot import name 'PackageFinder'
 
