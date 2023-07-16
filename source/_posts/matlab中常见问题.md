@@ -30,4 +30,42 @@ tags:
         th3 = 20 : 1 : 30;
         index = fullfact([length(th1), length(th2), length(th3)]);
         spaceJoint = [th1(index(:, 1))', th2(index(:, 2))', th3(index(:, 3))'];
-        
+4. matlab变参数个数输入
+    - nargin: 参数个数
+    - varargin: 函数输入元胞数组     
+    参考[支持可变数量的输入](https://ww2.mathworks.cn/help/matlab/matlab_prog/support-variable-number-of-inputs.html)
+
+    比如定义的写gif函数, 默认是追加方式
+    ```
+    function writeGif(gcf, file, varargin)
+    switch nargin
+        case 2
+            init = false;
+        case 3
+            init = varargin{1};
+    end
+    F = getframe(gcf);
+    I = frame2im(F);
+    [I, map] = rgb2ind(I, 256);
+    timeDelay = 0.02;
+    if init
+        imwrite(I, map, file, 'gif', 'Loopcount', inf, 'DelayTime', timeDelay);
+    else
+        imwrite(I, map, file, 'gif', 'WriteMode', 'append', 'DelayTime', timeDelay);
+    end
+    end
+    ```
+5. 同时给多个变量赋值`deal`
+    ```
+    [Y1, Y2, Y3, ...] = deal(X) % copies the single input to all the requested outputs. It is the same as Y1 = X, Y2 = X, Y3 = X, ...
+    [Y1, Y2, Y3, ...] = deal(X1, X2, X3, ...) % is the same as Y1 = X1; Y2 = X2; Y3 = X3; ...
+    ```
+6. 数据单维索引变换成二维索引`ind2sub`
+
+    ```
+    data = 3 * peaks;
+    surf(data);
+    [M, I] = max(data(:));
+    [x, y] = ind2sub(size(data), I);
+    P3 = arrow3([49 1 0], [y x data(x, y)], 'r2', 5, 5, 3);
+    ```
