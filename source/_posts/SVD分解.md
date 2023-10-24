@@ -64,3 +64,45 @@ $A=\left[\begin{array}{llll}
 0 & 0 & 0 & 3 \\
 \frac{1}{60000} & 0 & 0 & 0
 \end{array}\right]$ 特征值变为$\lambda=\frac{1}{10},\frac{i}{10},\frac{-1}{10},\frac{-i}{10}$, 奇异值$\sigma=3,2,1,\frac{1}{60000}$, $U,V$不变,只是分解后增加了一项很小的值$\sigma_4u_4v_4$
+
+### 伪逆$A^+$
+SVD分解对应$Av_i=\sigma u_i$, 对应把$C(A^T)$空间映射到$C(A)$空间,同样我们可以想办法找到映射关系反过来映射, 即$A^+u_i=\frac{1}{\sigma}v_i$, 即
+$$
+A^+=V\Sigma^+ U^T=\left[\boldsymbol{v}_{1} \cdots \boldsymbol{v}_{r} \cdots \boldsymbol{v}_{n}\right]\left[\begin{array}{lll}
+\sigma_{1}^{-1} & & \\
+& \ddots & \\
+& & \sigma_{r}^{-1}
+\end{array}\right]\left[\boldsymbol{u}_{1} \cdots \boldsymbol{u}_{r} \cdots \boldsymbol{u}_{m}\right]^{\mathrm{T}}
+$$
+其中$\Sigma^+$只是把$\Sigma$对应非零元素求倒,其实这里是想找到$A^{-1}$, 如果不存在的化就找到最接近的矩阵, 对应就是找$\Sigma=VAU^T$, 最接近单位矩阵就是上面的$\Sigma^+$, 对应$\Sigma^+\Sigma=\begin{bmatrix}
+1  &  &  & \\
+  &  \ddots &  & \\
+  &  &  1& \\
+  &  &  & 0
+\end{bmatrix}$就是正交投影矩阵
+$A^+$对应空间的映射关系如下, 刚好和$A$的映射关系相反
+![伪逆](SVD分解/SVDPinv.png)
+对应$AA^+,A^+A$分别把向量投影到$C(A), C(A^T)$
+$$
+AA^+=U\begin{bmatrix}
+1  &  &  & \\
+  &  \ddots &  & \\
+  &  &  1& \\
+  &  &  & 0
+\end{bmatrix} U^T=u_1u_1^T+\cdots+u_ru_r^T
+$$
+$$
+A^+A=V\begin{bmatrix}
+1  &  &  & \\
+  &  \ddots &  & \\
+  &  &  1& \\
+  &  &  & 0
+\end{bmatrix} V^T=v_1v_1^T+\cdots+v_rv_r^T
+$$
+其中$u_ru_r^T, v_rv_r^T$分别是1维投影到向量$u,v$
+
+## 极分解 Polar Decomposition $A = QS$
+极分解从SVD分解衍生而来, 把方阵分解成旋转(rotation)和拉伸(stretching), 其中Q是正交矩阵, S是半正定矩阵, 如果A可逆,则S为正定矩阵.任意实方阵都可极分解A=QS
+考虑复数的极坐标方式$x+iy=re^{i\theta}$,可以看成1x1矩阵的极分解
+从SVD分解可以得到两种形式的极分解
+$A=U\Sigma V^T=(UV^T)(V\Sigma V^T)=QS$, 或者$A=U\Sigma V^T=(U\Sigma U^T)(UV^T)=SQ$
