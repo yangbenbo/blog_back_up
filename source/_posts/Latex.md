@@ -28,6 +28,7 @@ mathjax: true
 LaTeX (/ˈlɑːtɛk/ LAH-tek or /ˈleɪtɛk/ LAY-tek)[^1]是一种用于排版文档的软件系统. 很多论文排版使用, 这里主要介绍伪代码
 
 ## vscode 配置Latex环境
+vscode配置好环境后可能遇到公式引用出错, 只需要再`build`就可以正常引用
 ### 安装LaTeX工具
 安装TeX发行版, 这里选择的MiKTeX
 ### 安装LaTeX插件
