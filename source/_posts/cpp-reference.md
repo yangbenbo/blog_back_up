@@ -40,6 +40,29 @@ C++ Reference[^1]提供了C++标准库的详细文档和参考信息.
 >- Dividing 0.0 by 0.0 gives NaN and FE_INVALID is raised.
 
 
+input
+```
+int ia0 = 0;
+int ia1 = 1;
+double db0 = 0.0;
+double db1 = 1.0;
+double db2 = -1.0;
+
+std::cout << "1.0/0= " << db1/ia0 << std::endl;
+std::cout << "-1.0/0= " << db2/ia0 << std::endl;
+std::cout << "1.0/0.0= " << db1/db0 << std::endl;
+std::cout << "-1.0/0.0= " << db2/db0 << std::endl;
+std::cout << "1/0= " << ia1/ia0 << std::endl;
+```
+output
+```
+1.0/0= inf
+-1.0/0= -inf
+1.0/0.0= inf
+-1.0/0.0= -inf
+unknown file: error: SEH exception with code 0xc0000094 thrown in the test body.
+```
+
 [^1]: https://en.cppreference.com/w/
 [^2]: https://en.cppreference.com/w/cpp/language/operator_arithmetic
 [^3]: https://en.cppreference.com/w/cpp/numeric/math/atan2
