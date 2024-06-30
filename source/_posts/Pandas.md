@@ -16,13 +16,13 @@ Pandas[^1]是一个开源的数据分析和操作库, 它是Python中用于数�
 官方教程已经非常详细, 这里展示多级索引示例以及预处理文件保存
 ```
 import pandas as pd
+import numpy as np
 
 # 定义多级列索引的名称
-first_level_columns = ['cur_jnt', 'cmd_jnt', 'Timestamp']
 second_level_columns = {
     'cur_jnt': ['R1', 'R2'],
     'cmd_jnt': ['R3', 'R4'],
-    'Timestamp': []  # 'Timestamp' 只有一级索引
+    't': []  # 'Timestamp' 只有一级索引
 }
 
 # 创建多级列索引
@@ -33,13 +33,17 @@ multi_columns = pd.MultiIndex.from_tuples(
 )
 
 # 创建一个空的DataFrame，行索引为整数范围
-integer_row_index = range(1, 6)
+integer_row_index = range(5)
 df = pd.DataFrame(index=integer_row_index, columns=multi_columns)
 
-# 填充内容
-df.loc[:,:] = np.random.random((5, 5))
-df.loc[:,("cur_jnt", "R1")] = np.random.random(5)
-df.loc[:,"t"] = np.arange(5)
+# 将新数据行添加到 DataFrame
+df.loc[:, :] = np.random.random((5, 5))
+df.loc[:, ("cur_jnt", "R1")] = np.random.random(5)
+df.loc[:, "t"] = np.arange(5)
+
+# 添加一行数据
+cur_jnt = [1, 2, 3, 4, 5]
+df.loc[len(df)] = cur_jnt
 
 # 打印填充数据后的DataFrame查看
 print("\nFilled DataFrame:")
