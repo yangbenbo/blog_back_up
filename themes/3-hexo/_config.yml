@@ -244,19 +244,22 @@ gitment:
 ##############################
 
 ##########CND设置#############
+# CDN 资源已全部本地化到 themes/3-hexo/source/{js,css}/lib/
+# 原因：cdn.bootcss.com 在受限网络下被拦截，jQuery/pjax 加载失败导致分类点击等交互失效
+# 本地化后资源从站点自身加载，不再依赖外部 CDN
 CDN:
-  jquery: //cdn.bootcss.com/jquery/2.2.4/jquery.min.js
-  jquery_cookie: //cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js
-  jquery_ui: //cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js
-  jquery_ui_css: //cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css
-  highlight: //cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js
-  pjax: //cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js
-  animate: //cdn.bootcss.com/animate.css/3.5.2/animate.min.css
-  font_awsome: //cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css
-  nprogres_js: //cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js
-  mathjax: //cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML
-  photoswipe_js: //cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js
-  photoswipe_ui_js: //cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js
-  photoswipe_css: //cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css
-  photoswipe_skin_css: //cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css
+  jquery: /js/lib/jquery.min.js
+  jquery_cookie: /js/lib/jquery.cookie.min.js   # jquery-cookie 1.4.1 兼容 shim
+  jquery_ui:                # 主题未引用，留空（启用相关功能前需自行本地化）
+  jquery_ui_css:            # 主题未引用，留空
+  highlight: /js/lib/highlight.min.js
+  pjax: /js/lib/jquery.pjax.min.js
+  animate: /css/lib/animate.min.css
+  font_awsome: /css/lib/font-awesome.min.css
+  nprogres_js: /js/lib/nprogress.min.js
+  mathjax: /js/lib/mathjax/MathJax.js?config=TeX-MML-AM_CHTML
+  photoswipe_js:            # img_resize: default 时不加载，留空（改 photoSwipe 前需自行本地化）
+  photoswipe_ui_js:         # 留空
+  photoswipe_css:           # 留空
+  photoswipe_skin_css:      # 留空
 ##############################
